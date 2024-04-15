@@ -7,7 +7,23 @@ export default {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          100: '#CCE6FF',
+          300: '#59B3FF',
+          500: '#3D66CC',
+        },
+        secondary: {
+          300: '#FFCC40',
+          500: '#FF9919',
+        },
+      },
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+        serif: ['Merriweather', 'serif'],
+      },
+    },
   },
   plugins: [],
 }
