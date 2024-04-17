@@ -5,7 +5,7 @@ import logo from '../assets/logo-branco-amarelo.svg'
 
 export function Header() {
   return (
-    <header className="bg-primary-500 flex w-full items-center justify-between px-[4.5rem] py-6">
+    <header className="flex w-full items-center justify-between bg-primary-500 px-[4.5rem] py-6">
       <Link to="/">
         <img src={logo} alt="Logo CENOPS UFC" />
       </Link>
