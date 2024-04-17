@@ -5,6 +5,7 @@ import { RegisterLayout } from './_layouts/register'
 import { Home } from './app/home'
 import { SignIn } from './auth/sign-in'
 import { SignUp } from './auth/sign-up'
+import { CadastroCliente } from './auth/cadastroCliente'
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,12 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <RegisterLayout />,
-    children: [{ path: '/sign-up', element: <SignUp /> }],
+    children: [
+      { path: '/sign-up', element: <SignUp /> },
+      { path: '/sign-up/client', element: <CadastroCliente /> },
+      { path: '/sign-up/professional', element: <SignUp /> },
+      { path: '/sign-up/address', element: <SignUp /> },
+      { path: '/sign-up/finishing', element: <SignUp /> },
+    ],
   },
 ])
