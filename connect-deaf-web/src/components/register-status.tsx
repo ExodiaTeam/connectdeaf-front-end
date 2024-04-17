@@ -7,7 +7,7 @@ export function RegisterStatus() {
   const { pathname } = useLocation()
 
   return (
-    <div className="pt-18 flex flex-col items-center gap-8 pb-10">
+    <div className="flex flex-col items-center gap-8 pb-10 pt-18">
       <h2 className="text-2xl font-medium">Cadastro</h2>
       {pathname === '/sign-up' && (
         <div className="flex items-center justify-center gap-2">
