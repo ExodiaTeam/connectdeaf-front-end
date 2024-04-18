@@ -10,6 +10,7 @@ export default {
     extend: {
       colors: {
         primary: {
+          50: '#EEF7FF',
           100: '#CCE6FF',
           300: '#59B3FF',
           500: '#3D66CC',
@@ -17,6 +18,9 @@ export default {
         secondary: {
           300: '#FFCC40',
           500: '#FF9919',
+        },
+        disabled: {
+          500: '#999999',
         },
       },
       fontFamily: {
