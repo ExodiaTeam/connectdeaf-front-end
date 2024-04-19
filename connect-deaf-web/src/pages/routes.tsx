@@ -6,6 +6,7 @@ import { Home } from './app/home'
 import { SignIn } from './auth/sign-in'
 import { SignUp } from './auth/sign-up'
 import { SignupClient } from './auth/sign-upClient'
+import { SignupProfessional } from './auth/sign-upProfessional'
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
     children: [
       { path: '/sign-up', element: <SignUp /> },
       { path: '/sign-up/client', element: <SignupClient /> },
-      { path: '/sign-up/professional', element: <SignUp /> },
+      { path: '/sign-up/professional', element: <SignupProfessional /> },
       { path: '/sign-up/address', element: <SignUp /> },
       { path: '/sign-up/finishing', element: <SignUp /> },
     ],

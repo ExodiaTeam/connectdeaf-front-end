@@ -3,13 +3,11 @@ import { Avatar, Button, TextField } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 
 export const SignupClient = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const onSubmit = (data: any) => {
         console.log(data);
     };
-
-    const { setValue } = useForm();
 
     //ainda vou tipar essa imagem
     const handleDrop = (imagem: any) => {
