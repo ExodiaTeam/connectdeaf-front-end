@@ -9,7 +9,7 @@ export function RegisterLayout() {
       <Header />
       <RegisterStatus />
 
-      <div className='w-auto'>
+      <div className="w-auto">
         <Outlet />
       </div>
     </div>

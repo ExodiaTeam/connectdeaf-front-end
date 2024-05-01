@@ -47,14 +47,14 @@ export function SignUp() {
             >
               <RadioGroup.Item
                 value="client"
-                className="data-[state=checked]:bg-primary-50 border-disabled-500 flex h-64 w-64 flex-col items-center justify-end gap-4 rounded-md border-2 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300"
+                className="flex h-64 w-64 flex-col items-center justify-end gap-4 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
               >
                 <img src={clientImg} alt="" />
                 <p className="text-xl font-medium">Cliente</p>
               </RadioGroup.Item>
               <RadioGroup.Item
                 value="professional"
-                className="data-[state=checked]:bg-primary-50 border-disabled-500 flex h-64 w-64 flex-col items-center justify-end gap-3 rounded-md border-2 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300"
+                className="flex h-64 w-64 flex-col items-center justify-end gap-3 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
               >
                 <img src={professionalImg} alt="" />
                 <p className="text-xl font-medium">Profissional</p>
