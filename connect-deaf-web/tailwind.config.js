@@ -14,6 +14,7 @@ export default {
           100: '#CCE6FF',
           300: '#59B3FF',
           500: '#3D66CC',
+          700: '#E2E8F7',
         },
         secondary: {
           300: '#FFCC40',
@@ -32,6 +33,9 @@ export default {
       },
       padding: {
         18: '4.5rem',
+      },
+      width: {
+        '89': '89%',
       },
     },
   },

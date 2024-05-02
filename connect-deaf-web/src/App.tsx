@@ -1,5 +1,4 @@
 import './global.css'
-import '@radix-ui/themes/styles.css';
 
 import { RouterProvider } from 'react-router-dom'
 
