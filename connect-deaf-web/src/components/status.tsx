@@ -28,10 +28,10 @@ export function Status(props: StatusProps) {
       )}
       {props.status === 'disabled' && (
         <>
-          <span className="bg-disabled-500 h-6 w-6 rounded-full text-center text-xs leading-6 text-white">
+          <span className="h-6 w-6 rounded-full bg-disabled-500 text-center text-xs leading-6 text-white">
             {props.step}
           </span>
-          <p className="text-disabled-500 text-sm font-medium">{props.name}</p>
+          <p className="text-sm font-medium text-disabled-500">{props.name}</p>
         </>
       )}
     </div>
