@@ -7,7 +7,7 @@ export function AppLayout() {
     <div className="flex h-screen flex-col items-center">
       <Header />
 
-      <div>
+      <div className='w-full'>
         <Outlet />
       </div>
     </div>

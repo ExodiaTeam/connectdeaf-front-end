@@ -1,5 +1,5 @@
 import { EyeNoneIcon, PersonIcon, UploadIcon } from '@radix-ui/react-icons';
-import { Avatar, Button, TextField } from '@radix-ui/themes';
+//import { Avatar, Button, TextField } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 
 export const SignupClient = () => {
@@ -21,7 +21,7 @@ export const SignupClient = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='flex justify-center flex-col gap-6 w-[644px]'>
-            <div className='flex justify-center'>
+            {/*<div className='flex justify-center'>
                 <p className="text-2xl font-medium">Dados do usuário</p>
             </div>
             <div className='flex gap-x-5'>
@@ -65,7 +65,7 @@ export const SignupClient = () => {
                     </div>
                 </div>
             </div>
-            <Button type='submit' style={{ marginBottom: '10px' }} size='3'>CONTINUAR</Button>
+            <Button type='submit' style={{ marginBottom: '10px' }} size='3'>CONTINUAR</Button>*/}
         </form>
     );
 };

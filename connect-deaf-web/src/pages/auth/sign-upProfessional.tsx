@@ -1,5 +1,4 @@
 import { EyeNoneIcon, PersonIcon, TriangleDownIcon, UploadIcon } from '@radix-ui/react-icons';
-import { Avatar, Button, TextField } from '@radix-ui/themes';
 import { useForm } from 'react-hook-form';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
@@ -28,7 +27,7 @@ export const SignupProfessional = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className='flex justify-center flex-col gap-6 w-[644px]'>
-            <div className='flex justify-center'>
+            {/*<div className='flex justify-center'>
                 <p className="text-2xl font-medium">Dados do prestador</p>
             </div>
             <div className='flex gap-x-5'>
@@ -71,7 +70,7 @@ export const SignupProfessional = () => {
                         <TextField.Root {...register('telefone', { required: true })} placeholder='(11) 11111-1111' size='3'></TextField.Root>
                     </div>
                 </div>
-                {/* FALTA ADICIONAR A VERIFICAÇÃO PARA NÃO DEIXAR O USUARIO MANDAR SEM SELECIOANR UMA OPÇÃO */}
+                {/* FALTA ADICIONAR A VERIFICAÇÃO PARA NÃO DEIXAR O USUARIO MANDAR SEM SELECIOANR UMA OPÇÃO }
                 <div className='w-full flex space-x-4'>
                     <div className='text-sm flex-grow w-80'>
                         Área de atuação
@@ -122,7 +121,7 @@ export const SignupProfessional = () => {
                 </div>
 
             </div>
-            <Button type='submit' style={{ marginBottom: '10px' }} size='3'>CONTINUAR</Button>
+            <Button type='submit' style={{ marginBottom: '10px' }} size='3'>CONTINUAR</Button>*/}
         </form>
     );
 };
