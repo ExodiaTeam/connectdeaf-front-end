@@ -5,7 +5,6 @@ import {
   TriangleDownIcon,
   UploadIcon,
 } from '@radix-ui/react-icons'
-import { Avatar, Button, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -41,7 +40,7 @@ export const SignUpProfessional = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex w-[644px] flex-col justify-center gap-6"
     >
-      <div className="flex justify-center">
+      {/*<div className="flex justify-center">
         <p className="text-2xl font-medium">Dados do prestador</p>
       </div>
       <div className="flex gap-x-5">
@@ -116,7 +115,7 @@ export const SignUpProfessional = () => {
             ></TextField.Root>
           </div>
         </div>
-        {/* FALTA ADICIONAR A VERIFICAÇÃO PARA NÃO DEIXAR O USUARIO MANDAR SEM SELECIOANR UMA OPÇÃO */}
+        {/* FALTA ADICIONAR A VERIFICAÇÃO PARA NÃO DEIXAR O USUARIO MANDAR SEM SELECIOANR UMA OPÇÃO }
         <div className="flex w-full space-x-4">
           <div className="w-80 flex-grow text-sm">
             Área de atuação
@@ -184,7 +183,7 @@ export const SignUpProfessional = () => {
       </div>
       <Button type="submit" style={{ marginBottom: '10px' }} size="3">
         CONTINUAR
-      </Button>
+      </Button>*/}
     </form>
   )
 }
