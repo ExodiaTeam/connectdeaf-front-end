@@ -1,6 +1,6 @@
 import { CardService } from "@/components/cardService"
-import { CaretDown, MagnifyingGlass } from "@phosphor-icons/react"
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Select } from "@/components/select";
+import { MagnifyingGlass } from "@phosphor-icons/react"
 
 
 export const ListServices = () => {
@@ -47,22 +47,22 @@ export const ListServices = () => {
                         className="w-full bg-transparent outline-none"
                     />
                 </div>
-                <DropdownMenu.Root>
-                    <DropdownMenu.Trigger className="w-1/4">
-                        <div className="flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
-                            <span className="text-disabled-500">Estado</span>
-                            <CaretDown size={16} className="text-disabled-500" />
-                        </div>
-                    </DropdownMenu.Trigger>
-                </DropdownMenu.Root>
-                <DropdownMenu.Root>
-                    <DropdownMenu.Trigger className="w-1/4">
-                        <div className="flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
-                            <span className="text-disabled-500">Cidade</span>
-                            <CaretDown size={16} className="text-disabled-500" />
-                        </div>
-                    </DropdownMenu.Trigger>
-                </DropdownMenu.Root>
+                <div className="w-1/4 flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
+                    <Select>
+                        <option value="1">Estado</option>
+                        <option value="2">Categoria 1</option>
+                        <option value="3">Categoria 2</option>
+                        <option value="4">Categoria 3</option>
+                    </Select>
+                </div>
+                <div className="w-1/4 flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
+                    <Select>
+                        <option value="1">Cidade</option>
+                        <option value="2">Categoria 1</option>
+                        <option value="3">Categoria 2</option>
+                        <option value="4">Categoria 3</option>
+                    </Select>
+                </div>
             </div>
             <div className='grid grid-cols-3 gap-6 w-89'>
                 {listServices.map((service) => {
