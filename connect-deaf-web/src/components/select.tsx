@@ -4,7 +4,7 @@ interface SelectProps {
 
 export function Select(data: SelectProps) {
   return (
-    <select className="h-full w-full border-none bg-transparent text-disabled-500 focus:outline-none">
+    <select className="text-disabled-700 h-full w-full border-none bg-transparent focus:outline-none">
       {data.children}
     </select>
   )
