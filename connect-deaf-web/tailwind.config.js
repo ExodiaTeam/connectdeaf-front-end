@@ -21,6 +21,7 @@ export default {
         },
         disabled: {
           500: '#999999',
+          700: '#6C6C6C',
         },
       },
       fontFamily: {
