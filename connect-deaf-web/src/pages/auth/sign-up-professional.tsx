@@ -5,7 +5,6 @@ import {
   TriangleDownIcon,
   UploadIcon,
 } from '@radix-ui/react-icons'
-import { Avatar, Button, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -37,7 +36,7 @@ export const SignUpProfessional = () => {
   }
 
   return (
-    <div className="flex flex-col items-center">
+<div className="flex flex-col items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-[644px] flex-col justify-center gap-6"
