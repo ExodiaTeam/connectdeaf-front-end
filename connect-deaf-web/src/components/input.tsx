@@ -9,7 +9,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   return (
     <input
       ref={ref}
-      className="placeholder-disabled-700 h-full w-full border-none bg-transparent focus:outline-none"
+      className="h-full w-full border-none bg-transparent placeholder-disabled-700 focus:outline-none"
       type={type}
       placeholder={placeholder}
       {...props}
