@@ -5,7 +5,7 @@ import { RegisterStatus } from '@/components/register-status'
 
 export function RegisterLayout() {
   return (
-    <div className="flex h-screen flex-col items-center">
+    <div className="flex min-h-screen flex-col antialiased">
       <Header />
       <RegisterStatus />
 
