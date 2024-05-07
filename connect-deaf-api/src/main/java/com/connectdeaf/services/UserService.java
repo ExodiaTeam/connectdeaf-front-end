@@ -12,11 +12,9 @@ public class UserService {
     private UserRepository userRepository;
 
     public User createUser(User user) {
-        this.userRepository.findByUsernameOrEmail(
-                user.getName(),
-                user.getEmail()).ifPresent(userEntity -> {
-                    throw new RuntimeException("Usuário já cadastrado.");
-                });
+        this.userRepository.findById(user.getId()).ifPresent(userEntity -> {
+            throw new RuntimeException("Usuário já cadastrado.");
+        });
 
         return this.userRepository.save(user);
     }
