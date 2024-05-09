@@ -30,6 +30,10 @@ public class Address {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "professional_id", nullable = true, updatable = false)
+    private Professional professional;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 }
