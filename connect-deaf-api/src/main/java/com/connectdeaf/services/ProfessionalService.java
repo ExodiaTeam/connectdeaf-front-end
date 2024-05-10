@@ -13,7 +13,7 @@ public class ProfessionalService {
 
     public Professional createProfessional(Professional professional) {
         professionalRepository.findById(professional.getId()).ifPresent(professionalEntity -> {
-            throw new RuntimeException("Usuário já cadastrado.");
+            throw new RuntimeException("Profissional já cadastrado.");
         });
 
         return professionalRepository.save(professional);
