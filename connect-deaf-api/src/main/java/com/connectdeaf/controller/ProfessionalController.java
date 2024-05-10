@@ -1,5 +1,6 @@
 package com.connectdeaf.controller;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ProfessionalController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Professional> getProfessional(@PathVariable UUID id) {
-        return professionalService.findById(id)
+        return this.professionalService.findById(id)
                 .map(professional -> ResponseEntity.ok().body(professional))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -44,13 +45,19 @@ public class ProfessionalController {
     @PutMapping("/{id}")
     public ResponseEntity<Professional> updateProfessional(@PathVariable UUID id,
             @Valid @RequestBody Professional professional) {
-        return professionalService.updateProfessional(id, professional)
+        return this.professionalService.updateProfessional(id, professional)
                 .map(updatedProfessional -> ResponseEntity.ok().body(updatedProfessional))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProfessional(@PathVariable UUID id) {
-
+    public ResponseEntity<Void> deleteProfessional(@PathVariable UUID id) {
+        Optional<Professional> professionalOptional = this.professionalService.findById(id);
+        if (professionalOptional.isPresent()) {
+            this.professionalService.deleteProfessional(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
