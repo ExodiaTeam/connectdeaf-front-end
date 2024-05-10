@@ -1,5 +1,7 @@
 package com.connectdeaf.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,8 @@ import com.connectdeaf.services.ProfessionalService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -20,7 +24,7 @@ public class ProfessionalController {
     private ProfessionalService professionalService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> createUser(@Valid @RequestBody Professional professional) {
+    public ResponseEntity<Object> createProfessional(@Valid @RequestBody Professional professional) {
         try {
             return ResponseEntity.ok(this.professionalService.createProfessional(professional));
         } catch (Exception e) {
@@ -28,4 +32,10 @@ public class ProfessionalController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Professional> getProfessional(@PathVariable UUID id) {
+        return professionalService.findById(id)
+                .map(professional -> ResponseEntity.ok().body(professional))
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
