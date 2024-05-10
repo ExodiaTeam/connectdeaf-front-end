@@ -1,6 +1,7 @@
 package com.connectdeaf.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -32,6 +34,9 @@ public class User {
 
     @Pattern(regexp = "^(\\+55|55|0)?\\s?[1-9]{2}\\s?9?[0-9]{4}-?[0-9]{4}$", message = "O número de telefone deve ser um número válido.")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "professional")
+    private List<Address> addresses;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

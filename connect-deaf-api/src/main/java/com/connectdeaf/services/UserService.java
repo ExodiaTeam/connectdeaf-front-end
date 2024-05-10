@@ -25,4 +25,24 @@ public class UserService {
 
         return this.userRepository.save(user);
     }
+
+    public Optional<User> updateUser(UUID id, User user) {
+        return this.userRepository.findById(id)
+                .map(existingUser -> {
+                    existingUser.setName(user.getName());
+                    existingUser.setEmail(user.getEmail());
+                    existingUser.setPassword(user.getPassword());
+                    existingUser.setPhoneNumber(user.getPhoneNumber());
+                    existingUser.setAddresses(user.getAddresses());
+                    existingUser.setCreatedAt(user.getCreatedAt());
+
+                    return this.userRepository.save(existingUser);
+                });
+    }
+
+    public void deleteUser(UUID id) {
+        this.userRepository.findById(id).ifPresent(user -> {
+            this.userRepository.delete(user);
+        });
+    }
 }
