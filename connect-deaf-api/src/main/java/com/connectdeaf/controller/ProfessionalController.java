@@ -13,7 +13,6 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("api/professionals")
 public class ProfessionalController {
@@ -25,8 +24,8 @@ public class ProfessionalController {
         try {
             return ResponseEntity.ok(this.professionalService.createProfessional(professional));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());  
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
+
 }

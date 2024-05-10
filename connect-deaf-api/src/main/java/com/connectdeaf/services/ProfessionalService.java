@@ -12,10 +12,10 @@ public class ProfessionalService {
     ProfessionalRepository professionalRepository;
 
     public Professional createProfessional(Professional professional) {
-       professionalRepository.findById(professional.getId()).ifPresent(professionalEntity -> {
-           throw new RuntimeException("Usuário já cadastrado.");
-       }); 
+        professionalRepository.findById(professional.getId()).ifPresent(professionalEntity -> {
+            throw new RuntimeException("Usuário já cadastrado.");
+        });
 
-       return professionalRepository.save(professional);
+        return professionalRepository.save(professional);
     }
 }
