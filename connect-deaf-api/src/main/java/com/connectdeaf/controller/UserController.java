@@ -2,7 +2,6 @@ package com.connectdeaf.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.connectdeaf.model.Professional;
 import com.connectdeaf.model.User;
 import com.connectdeaf.services.UserService;
 
