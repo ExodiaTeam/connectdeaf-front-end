@@ -42,10 +42,15 @@ public class ProfessionalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateProfessional(@PathVariable UUID id,
+    public ResponseEntity<Professional> updateProfessional(@PathVariable UUID id,
             @Valid @RequestBody Professional professional) {
         return professionalService.updateProfessional(id, professional)
                 .map(updatedProfessional -> ResponseEntity.ok().body(updatedProfessional))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProfessional(@PathVariable UUID id) {
+
     }
 }
