@@ -25,4 +25,20 @@ public class ProfessionalService {
 
         return professionalRepository.save(professional);
     }
+
+    public Optional<Professional> updateProfessional(UUID id, Professional professional) {
+        return professionalRepository.findById(id)
+        .map(existingProfessional -> {
+            existingProfessional.setName(professional.getName());
+            existingProfessional.setEmail(professional.getEmail());
+            existingProfessional.setActuationArea(professional.getActuationArea());
+            existingProfessional.setQualification(professional.getQualification());
+            existingProfessional.setPassword(professional.getPassword());
+            existingProfessional.setPhoneNumber(professional.getPhoneNumber());
+            existingProfessional.setAddresses(professional.getAddresses());
+            existingProfessional.setCreatedAt(professional.getCreatedAt());
+
+            return professionalRepository.save(existingProfessional);
+        });
+    }
 }

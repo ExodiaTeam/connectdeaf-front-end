@@ -12,9 +12,11 @@ import com.connectdeaf.services.ProfessionalService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -36,6 +38,14 @@ public class ProfessionalController {
     public ResponseEntity<Professional> getProfessional(@PathVariable UUID id) {
         return professionalService.findById(id)
                 .map(professional -> ResponseEntity.ok().body(professional))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateProfessional(@PathVariable UUID id,
+            @Valid @RequestBody Professional professional) {
+        return professionalService.updateProfessional(id, professional)
+                .map(updatedProfessional -> ResponseEntity.ok().body(updatedProfessional))
                 .orElse(ResponseEntity.notFound().build());
     }
 }
