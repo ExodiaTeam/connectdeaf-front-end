@@ -27,45 +27,47 @@ export function SignUp() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(handleUserRegistrationType)}
-      className="flex h-full flex-col items-center justify-center gap-6"
-    >
-      <p className="text-xl font-medium">Você é um...</p>
-      <Controller
-        control={control}
-        name="type"
-        render={({ field }) => {
-          return (
-            <RadioGroup.Root
-              onValueChange={(value) => {
-                field.onChange(value)
-                handleRadioChange(value)
-              }}
-              value={field.value}
-              className="flex gap-10"
-            >
-              <RadioGroup.Item
-                value="client"
-                className="flex h-64 w-64 flex-col items-center justify-end gap-4 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
+    <div className="flex flex-col items-center">
+      <form
+        onSubmit={handleSubmit(handleUserRegistrationType)}
+        className="flex h-full max-w-xl flex-col items-center gap-6 px-3"
+      >
+        <p className="text-xl font-medium">Você é um...</p>
+        <Controller
+          control={control}
+          name="type"
+          render={({ field }) => {
+            return (
+              <RadioGroup.Root
+                onValueChange={(value) => {
+                  field.onChange(value)
+                  handleRadioChange(value)
+                }}
+                value={field.value}
+                className="flex gap-10"
               >
-                <img src={clientImg} alt="" />
-                <p className="text-xl font-medium">Cliente</p>
-              </RadioGroup.Item>
-              <RadioGroup.Item
-                value="professional"
-                className="flex h-64 w-64 flex-col items-center justify-end gap-3 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
-              >
-                <img src={professionalImg} alt="" />
-                <p className="text-xl font-medium">Profissional</p>
-              </RadioGroup.Item>
-            </RadioGroup.Root>
-          )
-        }}
-      />
-      <Button type="submit" disabled={!isOptionSelected}>
-        CONTINUAR
-      </Button>
-    </form>
+                <RadioGroup.Item
+                  value="client"
+                  className="flex h-64 w-64 flex-col items-center justify-end gap-4 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
+                >
+                  <img src={clientImg} alt="" />
+                  <p className="text-xl font-medium">Cliente</p>
+                </RadioGroup.Item>
+                <RadioGroup.Item
+                  value="professional"
+                  className="flex h-64 w-64 flex-col items-center justify-end gap-3 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
+                >
+                  <img src={professionalImg} alt="" />
+                  <p className="text-xl font-medium">Profissional</p>
+                </RadioGroup.Item>
+              </RadioGroup.Root>
+            )
+          }}
+        />
+        <Button type="submit" disabled={!isOptionSelected}>
+          CONTINUAR
+        </Button>
+      </form>
+    </div>
   )
 }
