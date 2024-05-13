@@ -1,4 +1,8 @@
-import { EyeNoneIcon, PersonIcon, UploadIcon } from '@radix-ui/react-icons'
+import { Button } from '@/components/button'
+import { Fieldset } from '@/components/fieldset'
+import { Upload, User } from '@phosphor-icons/react'
+import * as Avatar from '@radix-ui/react-avatar';
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export const SignUpClient = () => {
@@ -8,6 +12,8 @@ export const SignUpClient = () => {
     setValue,
     formState: { errors },
   } = useForm()
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const onSubmit = (data: any) => {
     console.log(data)
@@ -28,24 +34,33 @@ export const SignUpClient = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex w-[644px] flex-col justify-center gap-6"
     >
-     {/* <div className="flex justify-center">
+     <div className="flex justify-center">
         <p className="text-2xl font-medium">Dados do usuário</p>
       </div>
       <div className="flex gap-x-5">
-        <Avatar
-          radius="full"
-          fallback={<PersonIcon style={{ width: '64px', height: '64px' }} />}
-          size="9"
-        />
+        <div className='flex items-center'>
+          {
+            imageFile === null ?
+              <div className='h-20 w-20 flex items-center justify-center rounded-full bg-primary-100'>
+                <User size={32} />
+              </div>
+              :
+              <div className='h-20 w-20 flex items-center justify-center rounded-full'>
+                <Avatar.Root>
+                  <Avatar.Image src={'https://avatars.githubusercontent.com/u/59853941?v=4'} alt="random" className='rounded-full w-8 h-8' />
+                </Avatar.Root>
+              </div>
+          }
+        </div>
         <div
           className="flex w-full flex-col items-start justify-center space-y-4 border-[2px] border-dashed border-[rgba(169,169,169,0.5)] border-gray-400 p-4"
           onDrop={handleDrop}
         >
-          <UploadIcon style={{ width: '24px', height: '24px' }} />
+          <Upload size={32} />
           <div>
             <label
               htmlFor="file-upload"
-              className="cursor-pointer text-base text-blue-500 underline"
+              className="cursor-pointer text-base text-primary-500 underline"
             >
               Clique para exportar
             </label>
@@ -54,9 +69,10 @@ export const SignUpClient = () => {
               type="file"
               {...register('image', { required: true })}
               style={{ display: 'none' }}
-              onChange={(e) =>
+              onChange={(e) => {
                 setValue('image', e.target.files ? [0] : undefined)
-              }
+                setImageFile(e.target.files ? e.target.files[0] : null);
+              }}
             />
             <span> ou arraste uma foto</span>
           </div>
@@ -64,49 +80,24 @@ export const SignUpClient = () => {
         </div>
       </div>
       <div className="flex w-auto flex-col gap-3 ">
-        <div className="text-sm">
-          Nome completo
-          <TextField.Root
-            {...register('nome', { required: true })}
-            size="3"
-            placeholder="Nome"
-          ></TextField.Root>
-        </div>
-        <div className="text-sm">
-          Email
-          <TextField.Root
-            {...register('email', { required: true })}
-            size="3"
-            placeholder="seu@email.com"
-          ></TextField.Root>
-        </div>
+        <Fieldset title='Nome completo'>
+          <input placeholder='Nome' />
+        </Fieldset>
+        <Fieldset title='Email'>
+          <input placeholder='seu@email.com' />
+        </Fieldset>
         <div className="flex w-full space-x-4">
-          <div className="flex-grow text-sm">
-            Senha
-            <div className="relative">
-              <TextField.Root
-                {...register('senha', { required: true })}
-                size="3"
-                type="password"
-              />
-              <span className="absolute inset-y-0 right-0 flex items-center pr-2">
-                <EyeNoneIcon className="h-5 w-5 text-gray-500" />
-              </span>
-            </div>
-          </div>
-          <div className="flex-grow text-sm">
-            Telefone
-            <TextField.Root
-              {...register('telefone', { required: true })}
-              placeholder="(11) 11111-1111"
-              size="3"
-            ></TextField.Root>
-          </div>
+          <Fieldset title='Senha'>
+            <input />
+          </Fieldset>
+          <Fieldset title='Telefone'>
+            <input placeholder='(11) 1 1111-1111' />
+          </Fieldset>
         </div>
       </div>
-      <Button type="submit" style={{ marginBottom: '10px' }} size="3">
+      <Button type="submit">
         CONTINUAR
-      </Button>*/}
+      </Button>
     </form>
   )
 }

@@ -1,4 +1,4 @@
-import { CardService } from "@/components/cardService"
+import { CardService } from "@/components/card-service"
 import { Select } from "@/components/select";
 import { MagnifyingGlass } from "@phosphor-icons/react"
 
@@ -48,7 +48,7 @@ export const ListServices = () => {
                     />
                 </div>
                 <div className="w-1/4 flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
-                    <Select>
+                    <Select placeholder="Estado">
                         <option value="1">Estado</option>
                         <option value="2">Categoria 1</option>
                         <option value="3">Categoria 2</option>
@@ -56,8 +56,7 @@ export const ListServices = () => {
                     </Select>
                 </div>
                 <div className="w-1/4 flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
-                    <Select>
-                        <option value="1">Cidade</option>
+                    <Select placeholder="Cidade">
                         <option value="2">Categoria 1</option>
                         <option value="3">Categoria 2</option>
                         <option value="4">Categoria 3</option>

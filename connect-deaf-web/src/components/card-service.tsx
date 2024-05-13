@@ -28,7 +28,6 @@ export const CardService = ({ name, location, description, category, avatar = un
             </div>
             <div className='flex flex-row items-center'>
                 <div className='w-1/5 h-full bg-transparent'>
-
                     {
                         avatar === undefined ?
                             <div className='h-full flex items-center justify-center rounded-full'>
