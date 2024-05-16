@@ -3,11 +3,11 @@ import { createBrowserRouter } from 'react-router-dom'
 import { AppLayout } from './_layouts/app'
 import { RegisterLayout } from './_layouts/register'
 import { Home } from './app/home'
+import { ListServices } from './app/list-services'
 import { SignIn } from './auth/sign-in'
 import { SignUp } from './auth/sign-up'
 import { SignUpClient } from './auth/sign-up-client'
 import { SignUpProfessional } from './auth/sign-up-professional'
-import { ListServices } from './app/list-services'
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/sign-in', element: <SignIn /> },
-      { path: '/services', element: <ListServices /> }
+      { path: '/services', element: <ListServices /> },
     ],
   },
 
