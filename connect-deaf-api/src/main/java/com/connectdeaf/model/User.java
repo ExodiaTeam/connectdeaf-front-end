@@ -35,7 +35,7 @@ public class User {
     @Pattern(regexp = "^(\\+55|55|0)?\\s?[1-9]{2}\\s?9?[0-9]{4}-?[0-9]{4}$", message = "O número de telefone deve ser um número válido.")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<Address> addresses;
 
     @CreationTimestamp
