@@ -25,18 +25,14 @@ export function Home() {
           </div>
           <div className="flex">
             <p className="font-medium">Mais procurados: </p>
-            <button> a </button>
-            <button> a </button>
-            <button> a </button>
-            <button> a </button>
           </div>
         </div>
         <div className="pl-40">
           <img src={homepageImg} alt="homepage-img"/>
         </div>
       </div>
-      <div className="flex w-full">
-        <img src={homepageBaseImg} alt="homepage-base" />
+      <div className="flex w-full fixed bottom-0">
+        <img src={homepageBaseImg} alt="homepage-base" className="h-full w-full"/>
       </div>
     </div>
   )
