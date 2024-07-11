@@ -1,7 +1,7 @@
 import { Button } from '@/components/button'
 import { Fieldset } from '@/components/fieldset'
+import { Avatar } from '@mui/material'
 import { Upload, User } from '@phosphor-icons/react'
-import * as Avatar from '@radix-ui/react-avatar';
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -47,9 +47,7 @@ export const SignUpClient = () => {
                 </div>
                 :
                 <div className='h-20 w-20 flex items-center justify-center rounded-full'>
-                  <Avatar.Root>
-                    <Avatar.Image src={'https://avatars.githubusercontent.com/u/59853941?v=4'} alt="random" className='rounded-full w-8 h-8' />
-                  </Avatar.Root>
+                  <Avatar src={'https://avatars.githubusercontent.com/u/59853941?v=4'} alt="random" sx={{ width: 32, height: 32, borderRadius: 9999 }} />
                 </div>
             }
           </div>
