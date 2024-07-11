@@ -1,7 +1,7 @@
-import * as RadioGroup from '@radix-ui/react-radio-group'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 
 import { Button } from '@/components/button'
 
@@ -22,7 +22,7 @@ export function SignUp() {
     navigate(`/sign-up/${data.type}`)
   }
 
-  function handleRadioChange(value: string) {
+  function handleRadioChange(event: React.ChangeEvent<HTMLInputElement>, value: string) {
     if (value) setIsOptionSelected(true)
   }
 
@@ -38,29 +38,36 @@ export function SignUp() {
           name="type"
           render={({ field }) => {
             return (
-              <RadioGroup.Root
-                onValueChange={(value) => {
-                  field.onChange(value)
-                  handleRadioChange(value)
-                }}
-                value={field.value}
-                className="flex gap-10"
-              >
-                <RadioGroup.Item
-                  value="client"
-                  className="flex h-64 w-64 flex-col items-center justify-end gap-4 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label="user-type"
+                  defaultValue="client"
+                  name="user-type"
+                  onChange={handleRadioChange}
+                  row
                 >
-                  <img src={clientImg} alt="" />
-                  <p className="text-xl font-medium">Cliente</p>
-                </RadioGroup.Item>
-                <RadioGroup.Item
-                  value="professional"
-                  className="flex h-64 w-64 flex-col items-center justify-end gap-3 rounded-md border-2 border-disabled-500 pb-6 shadow-[0px_4px_4px_0px_#00000040] hover:border-primary-300 data-[state=checked]:border-primary-300 data-[state=checked]:bg-primary-50"
-                >
-                  <img src={professionalImg} alt="" />
-                  <p className="text-xl font-medium">Profissional</p>
-                </RadioGroup.Item>
-              </RadioGroup.Root>
+                  <FormControlLabel
+                    value="client"
+                    control={<Radio />}
+                    label={
+                      <div className="flex flex-col items-center">
+                        <img src={clientImg} alt="Cliente" />
+                        <p>Cliente</p>
+                      </div>
+                    }
+                  />
+                  <FormControlLabel
+                    value="professional"
+                    control={<Radio />}
+                    label={
+                      <div className="flex flex-col items-center">
+                        <img src={professionalImg} alt="Profissional" />
+                        <p>Profissional</p>
+                      </div>
+                    }
+                  />
+                </RadioGroup>
+              </FormControl>
             )
           }}
         />

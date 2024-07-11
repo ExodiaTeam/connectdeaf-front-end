@@ -1,5 +1,4 @@
-import * as Avatar from '@radix-ui/react-avatar';
-import * as AspectRatio from '@radix-ui/react-aspect-ratio';
+import { Avatar } from '@mui/material';
 import { Heart, Image, MapPin, User } from '@phosphor-icons/react';
 
 type CardServiceProps = {
@@ -15,7 +14,7 @@ export const CardService = ({ name, location, description, category, avatar = un
     return (
         <div className='flex flex-col w-full h-full border rounded mt-10 gap-4'>
             <div className='h-2/4 flex'>
-                <AspectRatio.Root ratio={16 / 9} className='w-full'>
+                <div className='w-full'>
                     {
                         image === undefined ?
                             <div className='bg-black w-full h-full flex items-center justify-center'><Image size={64} color="#ffffff" /></div>
@@ -24,7 +23,7 @@ export const CardService = ({ name, location, description, category, avatar = un
                                 <img src={image} alt='Serviço prestado' className='w-full h-full' />
                             </div>
                     }
-                </AspectRatio.Root>
+                </div>
             </div>
             <div className='flex flex-row items-center'>
                 <div className='w-1/5 h-full bg-transparent'>
@@ -35,9 +34,7 @@ export const CardService = ({ name, location, description, category, avatar = un
                             </div>
                             :
                             <div className='h-full flex items-center justify-center rounded-full'>
-                                <Avatar.Root>
-                                    <Avatar.Image src={avatar} alt="random" className='rounded-full w-8 h-8' />
-                                </Avatar.Root>
+                                <Avatar src={avatar} alt="Avatar" sx={{ width: 32, height: 32, borderRadius: 9999 }} />
                             </div>
                     }
                 </div>
