@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-
-import { Button } from '@/components/button'
+import Button from '@mui/material/Button';
 
 import clientImg from '../../assets/cliente.svg'
 import professionalImg from '../../assets/profissional.svg'
@@ -71,8 +70,12 @@ export function SignUp() {
             )
           }}
         />
-        <Button type="submit" disabled={!isOptionSelected}>
-          CONTINUAR
+        <Button 
+          sx={{display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF',  transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem'}} 
+          type="submit" 
+          disabled={!isOptionSelected}
+          variant="contained"> 
+            CONTINUAR
         </Button>
       </form>
     </div>

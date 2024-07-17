@@ -1,4 +1,4 @@
-import { Button } from '@/components/button'
+import Button from '@mui/material/Button';
 import { Fieldset } from '@/components/fieldset'
 import { Select } from '@/components/select'
 import { useForm } from 'react-hook-form'
@@ -113,8 +113,11 @@ export const SignUpProfessional = () => {
             </Fieldset>
           </div>
         </div>
-        <Button type="submit">
-          CONTINUAR
+        <Button 
+          sx={{display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF',  transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem'}} 
+          type="submit" 
+          variant="contained"> 
+            CONTINUAR 
         </Button>
       </form>
     </div>
