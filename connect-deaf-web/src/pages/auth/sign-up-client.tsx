@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button';
-import { Fieldset } from '@/components/fieldset'
-import { Avatar } from '@mui/material'
-import { Upload, User } from '@phosphor-icons/react'
+import { Avatar, IconButton, InputAdornment, TextField } from '@mui/material'
+import { Eye, EyeSlash, Upload, User } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -28,6 +27,10 @@ export const SignUpClient = () => {
       setValue('image', file)
     }
   }
+
+  const [passwordVisible, setPasswordVisible] = useState(false)
+
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible)
 
   return (
     <div className="flex flex-col items-center">
@@ -66,7 +69,7 @@ export const SignUpClient = () => {
               <input
                 id="file-upload"
                 type="file"
-                {...register('image', { required: true })}
+                {...register('image', { required: false })}
                 style={{ display: 'none' }}
                 onChange={(e) => {
                   setValue('image', e.target.files ? [0] : undefined)
@@ -79,24 +82,48 @@ export const SignUpClient = () => {
           </div>
         </div>
         <div className="flex w-auto flex-col gap-3 ">
-          <Fieldset title='Nome completo'>
-            <input placeholder='Nome' />
-          </Fieldset>
-          <Fieldset title='Email'>
-            <input placeholder='seu@email.com' />
-          </Fieldset>
+          <TextField
+            label= 'Nome completo'
+            placeholder='Nome completo'
+            {...register('nome', { required: true })}
+          />
+          <TextField
+            label= 'Email'
+            placeholder='seu@email.com'
+            {...register('email', { required: true })}
+          />
           <div className="flex w-full space-x-4">
-            <Fieldset title='Senha'>
-              <input />
-            </Fieldset>
-            <Fieldset title='Telefone'>
-              <input placeholder='(11) 1 1111-1111' />
-            </Fieldset>
+            <TextField
+              label='Senha'
+              placeholder='Senha'
+              type={passwordVisible ? 'text' : 'password'}
+              fullWidth
+              {...register('password', { required: true })}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={togglePasswordVisibility}
+                      edge="end"
+                    >
+                      {passwordVisible ? <Eye /> : <EyeSlash />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              label= 'Telefone'
+              placeholder='(11) 11111-1111'
+              fullWidth
+              {...register('telefone', { required: true })}
+            />
           </div>
         </div>
         <Button 
           sx={{display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF',  transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem'}} 
-          type="submit" 
+          type='submit'
           variant="contained"> 
             CONTINUAR 
         </Button>

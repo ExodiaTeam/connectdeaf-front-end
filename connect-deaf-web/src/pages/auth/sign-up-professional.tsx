@@ -1,25 +1,24 @@
 import Button from '@mui/material/Button';
-import { Fieldset } from '@/components/fieldset'
-import { Select } from '@/components/select'
-import { useForm } from 'react-hook-form'
-import { Upload, User } from '@phosphor-icons/react';
+import { Controller, useForm } from 'react-hook-form'
+import { Eye, EyeSlash, Upload, User } from '@phosphor-icons/react';
 import { useState } from 'react';
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton, InputAdornment, MenuItem, TextField } from '@mui/material';
 
 export const SignUpProfessional = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    control,
     formState: { errors },
   } = useForm()
   const areasAtuacao = ['Option 1', 'Option 2', 'Option 3']
   const qualificacao = ['Option 1', 'Option 2', 'Option 3']
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-  }
+  const [passwordVisible, setPasswordVisible] = useState(false)
+
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible)
 
   // ainda vou tipar essa imagem
   const handleDrop = (image: any) => {
@@ -29,6 +28,10 @@ export const SignUpProfessional = () => {
       const file = files[0]
       setValue('image', file)
     }
+  }
+
+  const onSubmit = (data: any) => {
+    console.log(data)
   }
 
   return (
@@ -68,7 +71,7 @@ export const SignUpProfessional = () => {
               <input
                 id="file-upload"
                 type="file"
-                {...register('image', { required: true })}
+                {...register('image', { required: false })}
                 style={{ display: 'none' }}
                 onChange={(e) => {
                   setValue('image', e.target.files ? [0] : undefined)
@@ -81,36 +84,94 @@ export const SignUpProfessional = () => {
           </div>
         </div>
         <div className="flex w-auto flex-col gap-3 ">
-          <Fieldset title='Nome completo'>
-            <input placeholder='Nome' />
-          </Fieldset>
-          <Fieldset title='Email'>
-            <input placeholder='seu@email.com' />
-          </Fieldset>
+          <TextField
+            label= 'Nome completo'
+            placeholder='Nome completo'
+            {...register('nome', { required: true })}
+          />
+          <TextField
+            label= 'Email'
+            placeholder='seu@email.com'
+            {...register('email', { required: true })}
+          />
           <div className="flex w-full space-x-4">
-            <Fieldset title='Senha'>
-              <input />
-            </Fieldset>
-            <Fieldset title='Telefone'>
-              <input placeholder='(11) 1 1111-1111' />
-            </Fieldset>
+            <TextField
+              label='Senha'
+              placeholder='Senha'
+              type={passwordVisible ? 'text' : 'password'}
+              fullWidth
+              {...register('password', { required: true })}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={togglePasswordVisibility}
+                      edge="end"
+                    >
+                      {passwordVisible ? <Eye /> : <EyeSlash />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              label= 'Telefone'
+              placeholder='(11) 11111-1111'
+              fullWidth
+              {...register('telefone', { required: true })}
+            />
           </div>
           {/* FALTA ADICIONAR A VERIFICAÇÃO PARA NÃO DEIXAR O USUARIO MANDAR SEM SELECIOANR UMA OPÇÃO */}
           <div className="flex w-full space-x-4">
-            <Fieldset title='Área de atuação'>
-              <Select placeholder='Área de atuação'>
-                {areasAtuacao.map((area) => {
-                  return <option value={area}>{area}</option>
-                })}
-              </Select>
-            </Fieldset>
-            <Fieldset title='Qualificação'>
-              <Select placeholder='Qualificação'>
-                {qualificacao.map((area) => {
-                  return <option value={area}>{area}</option>
-                })}
-              </Select>
-            </Fieldset>
+            <Controller
+              name="areaAtuacao"
+              control={control}
+              defaultValue=""
+              rules={{ required: true }}
+              render={({ field }) => (
+                <TextField
+                  select
+                  label="Área de atuação"
+                  placeholder="Área de atuação"
+                  fullWidth
+                  {...field}
+                >
+                  <MenuItem value="" disabled>
+                    <em>Área de atuação</em>
+                  </MenuItem>
+                  {areasAtuacao.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+            <Controller
+              name="qualificacao"
+              control={control}
+              defaultValue=""
+              rules={{ required: true }}
+              render={({ field }) => (
+                <TextField
+                  select
+                  label="Qualificação"
+                  placeholder="Qualificação"
+                  fullWidth
+                  {...field}
+                >
+                  <MenuItem value="" disabled>
+                    <em>Qualificação</em>
+                  </MenuItem>
+                  {qualificacao.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
           </div>
         </div>
         <Button 

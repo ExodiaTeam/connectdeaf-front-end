@@ -40,15 +40,15 @@ export function SignIn() {
         <div className="flex w-full flex-col gap-5">
           <div>
             <TextField
-            label="Email"
-            placeholder='seu@email.com'
-            fullWidth
-            {...register('email', { required: true })}
-            InputProps={{
-              startAdornment: (
-                <EnvelopeSimple size={32} color="#999999" weight="thin" style={{marginRight: '8px'}}/>
-              )
-            }}
+              label="Email"
+              placeholder='seu@email.com'
+              fullWidth
+              {...register('email', { required: true })}
+              InputProps={{
+                startAdornment: (
+                  <EnvelopeSimple size={32} color="#999999" weight="thin" style={{marginRight: '8px'}}/>
+                )
+              }}
             />
             {errors.email && (
               <p className="mt-1 text-end text-sm text-red-500">
@@ -79,7 +79,6 @@ export function SignIn() {
                   </InputAdornment>
                 ),
               }}
-              variant="outlined"
             />
             {errors.password && (
               <p className="mt-1 text-end text-sm text-red-500">
