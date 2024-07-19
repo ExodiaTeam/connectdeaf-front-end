@@ -18,10 +18,10 @@ export const ListServices = () => {
 
     const listServices = [
         {
-            name: 'Kairo Matheus Sales Barbosa',
+            name: 'Kairo Matheus Sales Barbosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             location: 'Localização',
-            description: 'Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviçoDescrição do serviço',
-            category: ['Categoria 1', 'Categoria 2'],
+            description: 'Descrição do serviço Descriçãoaaaaaaaaaaaaaaaaaaaaaaaaaa do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviçoDescrição do serviço',
+            category: ['Categoria 1', 'Categoria 2', 'Categoria 2', 'Categoria 2', 'Categoria 2', 'Categoria 2'],
             avatar: 'https://avatars.githubusercontent.com/u/59853941?v=4',
             image: 'https://avatars.githubusercontent.com/u/59853941?v=4'
         },
@@ -52,7 +52,7 @@ export const ListServices = () => {
       }
 
     return (
-        <div className="flex flex-col justify-center items-center mt-16 w-full">
+        <div className="flex flex-col justify-center items-center mt-16 mb-16 w-full">
             <div className='text-2xl font-medium font-sans'>Serviços</div>
             <div className='font-serif text-disabled-500 mt-2 mb-10'>Talentos cuidadosamente escolhidos para suprir suas demandas profissionais.</div>
             <form onChange={handleSubmit(onSubmit)} className="flex flex-row gap-4 w-89">
@@ -116,7 +116,7 @@ export const ListServices = () => {
                     )}
                 />
             </form>
-            <div className='grid grid-cols-3 gap-6 w-89'>
+            <div className='grid grid-cols-3 gap-6 w-89' style={{marginTop: '40px'}}>
                 {listServices.map((service) => {
                     return (
                         <CardService {...service} />
