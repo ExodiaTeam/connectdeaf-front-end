@@ -1,15 +1,27 @@
 import { CardService } from "@/components/card-service"
-import { Select } from "@/components/select";
+import { InputAdornment, MenuItem, TextField } from "@mui/material";
 import { MagnifyingGlass } from "@phosphor-icons/react"
+import { Controller, useForm } from "react-hook-form";
 
 
 export const ListServices = () => {
+
+    const {
+        handleSubmit,
+        control,
+        register,
+        formState: { errors },
+      } = useForm()
+
+    const cidades = ['Option 1', 'Option 2', 'Option 3']
+    const estados = ['Option 1', 'Option 2', 'Option 3']
+
     const listServices = [
         {
-            name: 'Kairo Matheus Sales Barbosa',
+            name: 'Kairo Matheus Sales Barbosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             location: 'Localização',
-            description: 'Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviçoDescrição do serviço',
-            category: ['Categoria 1', 'Categoria 2'],
+            description: 'Descrição do serviço Descriçãoaaaaaaaaaaaaaaaaaaaaaaaaaa do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviçoDescrição do serviço',
+            category: ['Categoria 1', 'Categoria 2', 'Categoria 2', 'Categoria 2', 'Categoria 2', 'Categoria 2'],
             avatar: 'https://avatars.githubusercontent.com/u/59853941?v=4',
             image: 'https://avatars.githubusercontent.com/u/59853941?v=4'
         },
@@ -34,36 +46,77 @@ export const ListServices = () => {
             category: ['Categoria 1', 'Categoria 2'],
         },
     ]
+
+    const onSubmit = (data: any) => {
+        console.log(data)
+      }
+
     return (
-        <div className="flex flex-col justify-center items-center mt-16 w-full">
+        <div className="flex flex-col justify-center items-center mt-16 mb-16 w-full">
             <div className='text-2xl font-medium font-sans'>Serviços</div>
             <div className='font-serif text-disabled-500 mt-2 mb-10'>Talentos cuidadosamente escolhidos para suprir suas demandas profissionais.</div>
-            <div className="flex flex-row gap-4 w-89">
-                <div className="flex w-2/4 gap-2 rounded-md px-3 py-2 border border-disabled-500">
-                    <MagnifyingGlass size={24} className="text-disabled-500" />
-                    <input
-                        type="text"
-                        placeholder="Pesquisar por serviço..."
-                        className="w-full bg-transparent outline-none"
-                    />
-                </div>
-                <div className="w-1/4 flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
-                    <Select placeholder="Estado">
-                        <option value="1">Estado</option>
-                        <option value="2">Categoria 1</option>
-                        <option value="3">Categoria 2</option>
-                        <option value="4">Categoria 3</option>
-                    </Select>
-                </div>
-                <div className="w-1/4 flex justify-between items-center border border-disabled-500 rounded-md px-3 py-2">
-                    <Select placeholder="Cidade">
-                        <option value="2">Categoria 1</option>
-                        <option value="3">Categoria 2</option>
-                        <option value="4">Categoria 3</option>
-                    </Select>
-                </div>
-            </div>
-            <div className='grid grid-cols-3 gap-6 w-89'>
+            <form onChange={handleSubmit(onSubmit)} className="flex flex-row gap-4 w-89">
+                <TextField
+                    label="Serviço"
+                    placeholder="Pesquisar por serviço..."
+                    sx={{width: '50%'}}
+                    {...register('servico', { required: false })}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                            <MagnifyingGlass size={24}/>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+                <Controller
+                    name="estado"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: false }}
+                    render={({ field }) => (
+                        <TextField
+                        select
+                        label="Estado"
+                        sx={{width: '25%'}}
+                        {...field}
+                        >
+                        <MenuItem value="" disabled>
+                            <em>Estado</em>
+                        </MenuItem>
+                        {estados.map((option) => (
+                            <MenuItem key={option} value={option}>
+                            {option}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                    )}
+                />
+                <Controller
+                    name="cidade"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: false }}
+                    render={({ field }) => (
+                        <TextField
+                        select
+                        label="Cidade"
+                        sx={{width: '25%'}}
+                        {...field}
+                        >
+                        <MenuItem value="" disabled>
+                            <em>Cidade</em>
+                        </MenuItem>
+                        {cidades.map((option) => (
+                            <MenuItem key={option} value={option}>
+                            {option}
+                            </MenuItem>
+                        ))}
+                        </TextField>
+                    )}
+                />
+            </form>
+            <div className='grid grid-cols-3 gap-6 w-89' style={{marginTop: '40px'}}>
                 {listServices.map((service) => {
                     return (
                         <CardService {...service} />

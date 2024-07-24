@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeSlash } from '@phosphor-icons/react'
+import { EnvelopeSimple, Eye, EyeSlash, Lock } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-import { Button } from '@/components/button'
-import { Fieldset } from '@/components/fieldset'
-import { Input } from '@/components/input'
+import Button from '@mui/material/Button';
+import { IconButton, InputAdornment, TextField } from '@mui/material'
 
 const signInFormSchema = z.object({
   email: z.string().email('Insira um email válido!'),
@@ -40,13 +39,17 @@ export function SignIn() {
       >
         <div className="flex w-full flex-col gap-5">
           <div>
-            <Fieldset title="Email">
-              <Input
-                type="email"
-                placeholder="seu@email.com"
-                {...register('email', { required: true })}
-              />
-            </Fieldset>
+            <TextField
+              label="Email"
+              placeholder='seu@email.com'
+              fullWidth
+              {...register('email', { required: true })}
+              InputProps={{
+                startAdornment: (
+                  <EnvelopeSimple size={32} color="#999999" weight="thin" style={{marginRight: '8px'}}/>
+                )
+              }}
+            />
             {errors.email && (
               <p className="mt-1 text-end text-sm text-red-500">
                 {errors.email?.message}
@@ -54,29 +57,29 @@ export function SignIn() {
             )}
           </div>
           <div>
-            <Fieldset title="Senha">
-              <Input
-                type={passwordVisible ? 'text' : 'password'}
-                {...register('password', { required: true })}
-              />
-              <button
-                className="ml-2 h-6 w-6 pb-2"
-                type="button"
-                onClick={togglePasswordVisibility}
-              >
-                {passwordVisible ? (
-                  <Eye
-                    size={20}
-                    className="text-primary-500 hover:opacity-80"
-                  />
-                ) : (
-                  <EyeSlash
-                    size={20}
-                    className="text-primary-500 hover:opacity-80"
-                  />
-                )}
-              </button>
-            </Fieldset>
+            <TextField
+              label='Senha'
+              placeholder='Senha'
+              type={passwordVisible ? 'text' : 'password'}
+              fullWidth
+              {...register('password', { required: true })}
+              InputProps={{
+                startAdornment: (
+                  <Lock size={32} color="#999999" weight="thin" style={{marginRight: '8px'}}/>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={togglePasswordVisibility}
+                      edge="end"
+                    >
+                      {passwordVisible ? <Eye /> : <EyeSlash />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
             {errors.password && (
               <p className="mt-1 text-end text-sm text-red-500">
                 {errors.password?.message}
@@ -98,8 +101,12 @@ export function SignIn() {
             Lembrar de mim
           </label>
         </div>
-        <Button type="submit" disabled={isSubmitting}>
-          CONTINUAR
+        <Button 
+          sx={{display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF',  transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem'}} 
+          type="submit" 
+          disabled={isSubmitting}
+          variant="contained"> 
+            CONTINUAR 
         </Button>
         <a
           className="pt-4 text-primary-500 underline hover:opacity-80"
