@@ -19,4 +19,4 @@ A alta escassez de serviços oferecidos às surdas dificulta a realização de t
 - [Atualizado: Gestão de Projeto (JIRA)](https://connectdeaf.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?shared=&atlOrigin=eyJpIjoiNDk5N2Y0MGNiMzM2NGVlM2E0MGMwMGE1Y2QwNTc2YTQiLCJwIjoiaiJ9)
 - [Documento de Ferramentas e Boas Práticas](https://docs.google.com/document/d/1PA1nNW955HqqzvrHZEAJ9HJgEhlbNIK6ozCf7KsLRYs/edit?usp=sharing)
 - [Novo: Diagrama de Banco de Dados](https://excalidraw.com/#json=pCj3mV0_jcdESIx9uihUA,Uj5Ltt9z146aRo7QGnIQ2A)
-
+- [Novo: Relatório](https://docs.google.com/document/d/1rtlEDp11sz82cSEUg6wuBFJ8bOSvCjAv9If4ap_6U0k/edit)
