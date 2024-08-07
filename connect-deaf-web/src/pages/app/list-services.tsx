@@ -20,15 +20,15 @@ export const ListServices = () => {
         {
             name: 'Kairo Matheus Sales Barbosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
             location: 'Localização',
-            description: 'Descrição do serviço Descriçãoaaaaaaaaaaaaaaaaaaaaaaaaaa do serviço Descrição do serviço Descrição do serviço Descrição do serviço Descrição do serviçoDescrição do serviço',
-            category: ['Categoria 1', 'Categoria 2', 'Categoria 2', 'Categoria 2', 'Categoria 2', 'Categoria 2'],
+            description: 'Descrição',
+            category: ['Categoria 1', 'Categoria 2'],
             avatar: 'https://avatars.githubusercontent.com/u/59853941?v=4',
             image: 'https://avatars.githubusercontent.com/u/59853941?v=4'
         },
         {
             name: 'Nome do serviço',
             location: 'Localização',
-            description: 'Descrição do serviço',
+            description: 'Descrição',
             category: ['Categoria 1', 'Categoria 2'],
             avatar: 'https://avatars.githubusercontent.com/u/59853940?v=4',
             image: 'https://avatars.githubusercontent.com/u/59853940?v=4'
@@ -36,20 +36,20 @@ export const ListServices = () => {
         {
             name: 'Nome do serviço',
             location: 'Localização',
-            description: 'Descrição do serviço',
+            description: 'Descrição',
             category: ['Categoria 1', 'Categoria 2'],
         },
         {
             name: 'Nome do serviço',
             location: 'Localização',
-            description: 'Descrição do serviço',
+            description: 'Descrição',
             category: ['Categoria 1', 'Categoria 2'],
         },
     ]
 
     const onSubmit = (data: any) => {
         console.log(data)
-      }
+    }
 
     return (
         <div className="flex flex-col justify-center items-center mt-16 mb-16 w-full">
