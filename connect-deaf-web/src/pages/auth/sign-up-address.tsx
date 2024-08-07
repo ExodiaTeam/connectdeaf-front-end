@@ -1,8 +1,11 @@
 import { setAddressData, submitCreateUserForm } from "@/redux/formSlice"
 import { Button, MenuItem, TextField } from "@mui/material"
 import { Controller, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 export const SignUpAddress = () => {
+
+  const navigate = useNavigate();
 
   const Estados = ['Option 1', 'Option 2', 'Option 3']
   const Cidades = ['Option 1', 'Option 2', 'Option 3']
@@ -17,6 +20,7 @@ export const SignUpAddress = () => {
   const onSubmit = ( data: any ) => {
     setAddressData(data);
     submitCreateUserForm();
+    navigate('/sign-up/finishing');
   }
 
   return (
