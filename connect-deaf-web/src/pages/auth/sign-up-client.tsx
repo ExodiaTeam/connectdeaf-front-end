@@ -3,8 +3,13 @@ import { Avatar, IconButton, InputAdornment, TextField } from '@mui/material'
 import { Eye, EyeSlash, Upload, User } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom';
+import { setClientData } from '@/redux/formSlice';
 
 export const SignUpClient = () => {
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -15,7 +20,8 @@ export const SignUpClient = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    setClientData(data)
+    navigate('/sign-up/address')
   }
 
   // ainda vou tipar essa imagem
@@ -36,7 +42,7 @@ export const SignUpClient = () => {
     <div className="flex flex-col items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-[644px] flex-col justify-center gap-6"
+        className="flex w-3/6 flex-col justify-center gap-6"
       >
         <div className="flex justify-center">
           <p className="text-2xl font-medium">Dados do usuário</p>
@@ -85,7 +91,7 @@ export const SignUpClient = () => {
           <TextField
             label= 'Nome completo'
             placeholder='Nome completo'
-            {...register('nome', { required: true })}
+            {...register('name', { required: true })}
           />
           <TextField
             label= 'Email'
@@ -117,7 +123,7 @@ export const SignUpClient = () => {
               label= 'Telefone'
               placeholder='(11) 11111-1111'
               fullWidth
-              {...register('telefone', { required: true })}
+              {...register('phoneNumber', { required: true })}
             />
           </div>
         </div>

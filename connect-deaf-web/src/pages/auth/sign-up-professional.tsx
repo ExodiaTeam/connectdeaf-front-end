@@ -3,8 +3,13 @@ import { Controller, useForm } from 'react-hook-form'
 import { Eye, EyeSlash, Upload, User } from '@phosphor-icons/react';
 import { useState } from 'react';
 import { Avatar, IconButton, InputAdornment, MenuItem, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { setProfessionalData } from '@/redux/formSlice';
 
 export const SignUpProfessional = () => {
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -31,14 +36,15 @@ export const SignUpProfessional = () => {
   }
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    setProfessionalData(data)
+    navigate('/sign-up/address')
   }
 
   return (
     <div className="flex flex-col items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-[644px] flex-col justify-center gap-6"
+        className="flex w-3/6 flex-col justify-center gap-6"
       >
         <div className="flex justify-center">
           <p className="text-2xl font-medium">Dados do prestador</p>
@@ -87,7 +93,7 @@ export const SignUpProfessional = () => {
           <TextField
             label= 'Nome completo'
             placeholder='Nome completo'
-            {...register('nome', { required: true })}
+            {...register('name', { required: true })}
           />
           <TextField
             label= 'Email'
@@ -119,13 +125,13 @@ export const SignUpProfessional = () => {
               label= 'Telefone'
               placeholder='(11) 11111-1111'
               fullWidth
-              {...register('telefone', { required: true })}
+              {...register('phoneNumber', { required: true })}
             />
           </div>
           {/* FALTA ADICIONAR A VERIFICAÇÃO PARA NÃO DEIXAR O USUARIO MANDAR SEM SELECIOANR UMA OPÇÃO */}
           <div className="flex w-full space-x-4">
             <Controller
-              name="areaAtuacao"
+              name="occupationArea"
               control={control}
               defaultValue=""
               rules={{ required: true }}
@@ -149,7 +155,7 @@ export const SignUpProfessional = () => {
               )}
             />
             <Controller
-              name="qualificacao"
+              name="qualification"
               control={control}
               defaultValue=""
               rules={{ required: true }}
