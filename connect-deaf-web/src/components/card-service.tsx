@@ -1,6 +1,7 @@
 import { Avatar } from '@mui/material';
 import { Heart, Image, MapPin, User } from '@phosphor-icons/react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type CardServiceProps = {
     name: string;
@@ -13,10 +14,16 @@ type CardServiceProps = {
 
 export const CardService = ({ name, location, description, category, avatar = undefined, image = undefined }: CardServiceProps) => {
     
+    const navigate = useNavigate();
+
     const [favorite, setFavorite] = useState(false);
 
+    const handleClickCard = () => {
+        navigate('/service', { state: { name, location, description, category, avatar, image } });
+    }
+
     return (
-        <div className="grid gap-2">
+        <div className="grid gap-2 cursor-pointer" onClick={handleClickCard}>
             <article className="max-w-md mx-auto mt-4 shadow-lg border rounded-md duration-300 hover:shadow-sm" style={{ width: '362px', height: '396px' }}>
                 <a>
                 <div style={{ width: '362px', height: '200px' }}>
