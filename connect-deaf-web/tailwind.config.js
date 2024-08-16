@@ -26,8 +26,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        serif: ['Inter', 'serif'],
       },
       margin: {
         18: '4.5rem',
