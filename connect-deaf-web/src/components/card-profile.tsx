@@ -5,7 +5,7 @@ interface ProfileCardProps {
     name: string;
     location: string;
     description: string;
-    imageUrl: string;
+    imageUrl?: string;
 }
 
 export const CardProfile = ( { name, location, description, imageUrl } : ProfileCardProps ) => {
@@ -13,7 +13,7 @@ export const CardProfile = ( { name, location, description, imageUrl } : Profile
         <div className="w-full bg-white rounded-lg shadow-lg gap-6 justify-between p-5 flex items-center border-[1px] border-primary-700">
             <div className="flex-none w-24 h-24 rounded-full">
                 {
-                    imageUrl === undefined ?
+                    imageUrl?
                     <div className="w-full h-full rounded-full flex items-center justify-center bg-gray-200">
                         <User size={32} />
                     </div>
