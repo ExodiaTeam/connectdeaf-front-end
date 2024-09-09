@@ -1,8 +1,7 @@
-import { CardAppointments } from "@/components/card-appointment"
+import CardAppointments from "@/components/card-appointment"
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
 import { MagnifyingGlass } from "@phosphor-icons/react"
 import { Controller, useForm } from "react-hook-form";
-
 
 export const Appointments = () => {
 
@@ -88,7 +87,7 @@ export const Appointments = () => {
     return (
         <div className="flex flex-col justify-center items-center mt-16 mb-16 w-full h-full">
             <div className='text-2xl font-medium font-sans mb-12'>Agendamentos</div>
-            <form onChange={handleSubmit(onSubmit)} className="flex flex-row gap-4 w-89">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row gap-4 w-89">
                 <TextField
                     label="Serviço"
                     placeholder="Pesquisar por serviço, prestador..."
@@ -103,7 +102,7 @@ export const Appointments = () => {
                     }}
                 />
                 <Controller
-                    name="Status do Serviço"
+                    name="status"
                     control={control}
                     defaultValue=""
                     rules={{ required: false }}
@@ -117,44 +116,43 @@ export const Appointments = () => {
                         <MenuItem value="" disabled>
                             <em>Status do Serviço</em>
                         </MenuItem>
+                        <MenuItem value="Em espera">Em espera</MenuItem>
+                        <MenuItem value="Concluído">Concluído</MenuItem>
+                        <MenuItem value="Cancelado">Cancelado</MenuItem>
                         </TextField>
                     )}
                 />
                 <Controller
-                    name="Data Inicial"
+                    name="dataInicial"
                     control={control}
                     defaultValue=""
-                    rules={{ required: false }}
+                    rules={{ required: false, pattern: /^\d{2}\/\d{2}\/\d{4}$/ }}
                     render={({ field }) => (
                         <TextField
                         label="Data Inicial"
                         placeholder="DD/MM/AAAA"
                         sx={{width: '15%'}}
                         {...field}
-                        >
-                        <MenuItem value="" disabled>
-                            <em>Data Inicial</em>
-                        </MenuItem>
-                        </TextField>
+                        error={!!errors.dataInicial}
+                        helperText={errors.dataInicial ? 'Formato de data inválido' : ''}
+                        />
                     )}
                 />
                 <hr className='bg-[#1d1d1d] h-0.5 w-6 mt-6'></hr>
                 <Controller
-                    name="Data Final"
+                    name="dataFinal"
                     control={control}
                     defaultValue=""
-                    rules={{ required: false }}
+                    rules={{ required: false, pattern: /^\d{2}\/\d{2}\/\d{4}$/ }}
                     render={({ field }) => (
                         <TextField
-                        label="Data final"
+                        label="Data Final"
                         placeholder="DD/MM/AAAA"
                         sx={{width: '15%'}}
                         {...field}
-                        >
-                        <MenuItem value="" disabled>
-                            <em>Data final</em>
-                        </MenuItem>
-                        </TextField>
+                        error={!!errors.dataFinal}
+                        helperText={errors.dataFinal ? 'Formato de data inválido' : ''}
+                        />
                     )}
                 />
             </form>
