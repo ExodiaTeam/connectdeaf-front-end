@@ -5,10 +5,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 import { setClientData } from '@/redux/formSlice';
+import { useDispatch } from 'react-redux';
 
 export const SignUpClient = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -20,8 +22,8 @@ export const SignUpClient = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const onSubmit = (data: any) => {
-    setClientData(data)
-    navigate('/sign-up/address')
+    dispatch(setClientData(data));
+    navigate('/sign-up/address');
   }
 
   // ainda vou tipar essa imagem
@@ -75,7 +77,7 @@ export const SignUpClient = () => {
               <input
                 id="file-upload"
                 type="file"
-                {...register('image', { required: false })}
+                //{...register('image', { required: false })}
                 style={{ display: 'none' }}
                 onChange={(e) => {
                   setValue('image', e.target.files ? [0] : undefined)

@@ -5,10 +5,12 @@ import { useState } from 'react';
 import { Avatar, IconButton, InputAdornment, MenuItem, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { setProfessionalData } from '@/redux/formSlice';
+import { useDispatch } from 'react-redux';
 
 export const SignUpProfessional = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -36,8 +38,8 @@ export const SignUpProfessional = () => {
   }
 
   const onSubmit = (data: any) => {
-    setProfessionalData(data)
-    navigate('/sign-up/address')
+    dispatch(setProfessionalData(data));
+    navigate('/sign-up/address');
   }
 
   return (

@@ -1,11 +1,19 @@
-import { setAddressData, submitCreateUserForm } from "@/redux/formSlice"
+import { AppDispatch } from "@/redux"
+import { createClient, selectCombinedData, setAddressData, selectedType } from "@/redux/formSlice"
 import { Button, MenuItem, TextField } from "@mui/material"
+import { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 export const SignUpAddress = () => {
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const combinedData = useSelector(selectCombinedData);
+  const typeSelected = useSelector(selectedType);
 
   const Estados = ['Option 1', 'Option 2', 'Option 3']
   const Cidades = ['Option 1', 'Option 2', 'Option 3']
@@ -18,10 +26,22 @@ export const SignUpAddress = () => {
   } = useForm()
 
   const onSubmit = ( data: any ) => {
-    setAddressData(data);
-    submitCreateUserForm();
-    navigate('/sign-up/finishing');
+    dispatch(setAddressData(data));
   }
+
+  useEffect(() => {
+    if (combinedData) {
+      if(typeSelected === 'professional') {
+        dispatch(createClient(combinedData)).then(() => {
+          navigate('/sign-up/finishing');
+        });
+      } else if(typeSelected === 'client') {
+        dispatch(createClient(combinedData)).then(() => {
+        navigate('/sign-up/finishing');
+      });
+      }
+    }
+  }, [combinedData, dispatch, navigate]);
 
   return (
     <div className="flex flex-col items-center">
