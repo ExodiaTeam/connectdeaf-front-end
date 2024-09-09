@@ -28,6 +28,9 @@ export function Header() {
         />
       </div>
       <nav className="flex items-center justify-between gap-6">
+        <Link className="text-white transition-opacity hover:opacity-80" to="/appointments">
+          AGENDAMENTOS
+        </Link>
         <Link className="text-white transition-opacity hover:opacity-80" to="/services">
           SERVIÇOS
         </Link>
