@@ -11,6 +11,7 @@ import { ListServices } from './app/list-services'
 import { SignUpAddress } from './auth/sign-up-address'
 import { SignUpFinishing } from './auth/sign-up-finishing'
 import { Service } from './app/service'
+import { Profile } from './app/profile'
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/sign-in', element: <SignIn /> },
       { path: '/services', element: <ListServices /> },
-      { path: '/service', element: <Service /> }
+      { path: '/service', element: <Service /> },
+      { path: '/profile/:id', element: <Profile /> },
     ],
   },
 
