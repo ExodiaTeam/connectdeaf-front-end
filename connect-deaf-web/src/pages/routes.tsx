@@ -11,8 +11,10 @@ import { ListServices } from './app/list-services'
 import { SignUpAddress } from './auth/sign-up-address'
 import { SignUpFinishing } from './auth/sign-up-finishing'
 import { Service } from './app/service'
-import { Profile } from './app/profile'
+import { ProfileProfessional } from './app/profile-professional'
+import { ProfileClient } from './app/profile-client.tsx'
 import { Appointments } from './app/appointments'
+import ProtectedRoute from './protectedRoute'
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +25,15 @@ export const router = createBrowserRouter([
       { path: '/sign-in', element: <SignIn /> },
       { path: '/services', element: <ListServices /> },
       { path: '/service', element: <Service /> },
-      { path: '/profile/:id', element: <Profile /> },
-      { path: '/appointments', element: <Appointments /> },
+      { path: '/myprofile/professional/:id', element: <ProtectedRoute />, children: [
+        { path: '', element: <ProfileProfessional /> },
+      ]},
+      { path: '/myprofile/client/:id', element: <ProtectedRoute />, children: [
+        { path: '', element: <ProfileClient /> },
+      ]},
+      { path: '/appointments', element: <ProtectedRoute />, children: [
+        { path: '', element: <Appointments /> },
+      ]},
     ],
   },
 

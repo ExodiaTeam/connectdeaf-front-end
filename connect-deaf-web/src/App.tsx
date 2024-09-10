@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import { router } from './pages/routes'
 import { useEffect } from 'react';
-import { setAuthStatus } from './redux/authSlice';
+import { login } from './redux/authSlice';
 import { useDispatch } from 'react-redux';
 
 export function App() {
@@ -12,14 +12,12 @@ export function App() {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      try {
-        const response = await fetch('/api/auth/status', {
-          credentials: 'include',
-        });
-        const data = await response.json();
-        dispatch(setAuthStatus(data.isLoggedIn));
-      } catch (error) {
-        console.error('Erro ao verificar o estado de autenticação:', error);
+      const token = localStorage.getItem('token');
+      const tokenExpiry = localStorage.getItem('tokenExpiry');
+      if (token) {
+        dispatch(login({ token, expiresIn: parseInt(tokenExpiry || '0', 10) }));
+      } else {
+        
       }
     };
 
