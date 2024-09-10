@@ -3,9 +3,12 @@ import { EnvelopeSimple, Eye, EyeSlash, Lock } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button';
 import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { login } from '@/redux/authSlice'
 
 const signInFormSchema = z.object({
   email: z.string().email('Insira um email válido!'),
@@ -16,6 +19,9 @@ const signInFormSchema = z.object({
 type SignInFormInputs = z.infer<typeof signInFormSchema>
 
 export function SignIn() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
@@ -23,7 +29,47 @@ export function SignIn() {
   } = useForm<SignInFormInputs>({ resolver: zodResolver(signInFormSchema) })
 
   async function handleSignIn(data: SignInFormInputs) {
-    console.log(data)
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = 'Erro ao fazer login';
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          errorMessage = errorText || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
+
+      const result = await response.json();
+      const token = result.accessToken;
+      const expiresIn = result.expiresIn;
+
+      dispatch(login({ token, expiresIn }));
+      navigate('/services');
+
+      console.log('Login bem-sucedido:', result);
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('Erro desconhecido ao fazer login');
+      }
+    }
   }
 
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -101,6 +147,11 @@ export function SignIn() {
             Lembrar de mim
           </label>
         </div>
+        {errorMessage && (
+          <p className="mt-1 text-end text-sm text-red-500">
+            {errorMessage}
+          </p>
+        )}
         <Button 
           sx={{display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF',  transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem'}} 
           type="submit" 
