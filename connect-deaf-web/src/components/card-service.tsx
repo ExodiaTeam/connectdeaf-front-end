@@ -10,9 +10,10 @@ type CardServiceProps = {
     category: string[];
     avatar?: string | undefined;
     image?: string | undefined;
+    price: string;
 }
 
-export const CardService = ({ name, location, description, category, avatar = undefined, image = undefined }: CardServiceProps) => {
+export const CardService = ({ name, location, description, category, avatar = undefined, image = undefined, price }: CardServiceProps) => {
     
     const navigate = useNavigate();
 
@@ -62,6 +63,7 @@ export const CardService = ({ name, location, description, category, avatar = un
                     </div>
                 </div>
                 <div className="pt-3 ml-4 mr-2 mb-3">
+                    <p className="text-sm mt-1"> A partir de {price}</p>
                     <p className="text-gray-400 text-sm mt-1 h-16" style={{ overflowY: 'scroll', textWrap: 'wrap', textOverflow: 'ellipsis'}}>{description}</p>
                 </div>
                 <div className='ml-4 flex flex-row gap-2 mb-4' style={{ overflowY: 'scroll', scrollbarWidth:'none', textWrap: 'wrap', textOverflow: 'ellipsis'}}>

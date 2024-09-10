@@ -4,10 +4,10 @@ import { RootState } from '../redux/index'
 import logo from '../assets/logo-branco-amarelo.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@/redux/authSlice';
+import { Button } from '@mui/material';
 
 export function Header() {
-  //const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -28,22 +28,28 @@ export function Header() {
         />
       </div>
       <nav className="flex items-center justify-between gap-6">
-        <Link className="text-white transition-opacity hover:opacity-80" to="/appointments">
-          AGENDAMENTOS
-        </Link>
-        <Link className="text-white transition-opacity hover:opacity-80" to="/services">
-          SERVIÇOS
-        </Link>
         
         { 
           isLoggedIn ?
             <div className='flex gap-4 items-center'>
+              <Link className="text-white transition-opacity hover:opacity-80" to="/appointments">
+                AGENDAMENTOS
+              </Link>
+              <Link className="text-white transition-opacity hover:opacity-80" to="/services">
+                SERVIÇOS
+              </Link>
               <Bell size={24} color="#ffffff" weight="fill" />
               <Envelope size={24} color="#ffffff" />
               <UserCircle size={32} color="#ffffff" weight="fill" />
+              <Button 
+                variant="contained"
+                onClick={handleLogout}
+              >
+                SAIR
+              </Button>
             </div>
           :
-            <div>
+            <div className='flex gap-4 items-center'>
               <Link
               className="font-bold text-white transition-opacity hover:opacity-80"
               to="/sign-up"
