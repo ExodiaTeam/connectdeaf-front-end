@@ -31,7 +31,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.expiresIn = action.payload.expiresIn;
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('tokenExpiry', (Date.now() + action.payload.expiresIn * 1000).toString());
+      localStorage.setItem('tokenExpiry', action.payload.expiresIn.toString());
     },
   },
 });

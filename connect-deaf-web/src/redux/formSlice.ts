@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./index"; // Assumindo que você tenha o tipo RootState definido no seu store
+import { RootState } from "./index";
 
 interface FormState {
   selectedType: "client" | "professional" | null;
@@ -20,6 +20,31 @@ const initialState: FormState = {
   error: null,
   combinedData: null,
 };
+
+const createProfessional = createAsyncThunk(
+  "create/professional",
+  async (dadosUsuario: any, { rejectWithValue }) => {
+    console.log('teste dentro da funcao', dadosUsuario);
+    try {
+      const response = await fetch("http://localhost:8080/api/professionals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dadosUsuario),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha na requisição');
+      }
+
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
 
 const createClient = createAsyncThunk(
   "create/client",
@@ -61,7 +86,15 @@ const formSlice = createSlice({
       };
 
       if (state.selectedType === "professional") {
-        combinedData.professionalData = { ...state.professionalData };
+        combinedData.name = state.professionalData.name;
+        combinedData.email = state.professionalData.email;
+        combinedData.password = state.professionalData.password;
+        combinedData.phoneNumber = state.professionalData.phoneNumber;
+        combinedData.qualification = state.professionalData.qualification;
+        combinedData.areaOfExpertise = state.professionalData.areaOfExpertise;
+        combinedData.workStartTime = state.professionalData.workStartTime;
+        combinedData.workEndTime = state.professionalData.workEndTime;
+        combinedData.breakDuration = state.professionalData.breakDuration;
       } else if (state.selectedType === "client") {
         combinedData.name = state.clientData.name;
         combinedData.email = state.clientData.email;
@@ -103,5 +136,5 @@ export const {
   setProfessionalData,
   setClientData,
 } = formSlice.actions;
-export { createClient };
+export { createClient, createProfessional };
 export default formSlice.reducer;
