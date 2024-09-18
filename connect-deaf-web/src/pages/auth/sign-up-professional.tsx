@@ -12,9 +12,12 @@ interface FormData {
   email: string;
   password: string;
   phoneNumber: string;
-  occupationArea: string;
+  areaOfExpertise: string;
   qualification: string;
   image?: File | null;
+  workStartTime: string;
+  workEndTime: string;
+  breakDuration: string;
 }
 
 export const SignUpProfessional = () => {
@@ -33,6 +36,7 @@ export const SignUpProfessional = () => {
 
   const areasAtuacao = ['Option 1', 'Option 2', 'Option 3'];
   const qualificacao = ['Option 1', 'Option 2', 'Option 3'];
+  const intervalos = ['15 minutos', 'PT30M', '45 minutos', '1 hora'];
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -72,6 +76,7 @@ export const SignUpProfessional = () => {
   };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log('teste onSubmit professional', data)
     if (data.phoneNumber.length !== 11) {
       setError('phoneNumber', {
         type: 'manual',
@@ -189,7 +194,7 @@ export const SignUpProfessional = () => {
           </div>
           <div className="flex w-full space-x-4">
             <Controller
-              name="occupationArea"
+              name="areaOfExpertise"
               control={control}
               defaultValue=""
               rules={{ required: 'Área de atuação é obrigatória' }}
@@ -200,8 +205,8 @@ export const SignUpProfessional = () => {
                   placeholder="Área de atuação"
                   fullWidth
                   {...field}
-                  error={!!errors.occupationArea}
-                  helperText={errors.occupationArea?.message}
+                  error={!!errors.areaOfExpertise}
+                  helperText={errors.areaOfExpertise?.message}
                 >
                   <MenuItem value="" disabled>
                     <em>Área de atuação</em>
@@ -241,6 +246,52 @@ export const SignUpProfessional = () => {
               )}
             />
           </div>
+          <div className="flex w-full space-x-4">
+            <TextField
+              label='Horário de início'
+              type='time'
+              fullWidth
+              inputProps={{ step: 1 }}
+              {...register('workStartTime', { required: 'Horário de início é obrigatório' })}
+              error={!!errors.workStartTime}
+              helperText={errors.workStartTime?.message}
+            />
+            <TextField
+              label='Horário de término'
+              type='time'
+              fullWidth
+              inputProps={{ step: 1 }}
+              {...register('workEndTime', { required: 'Horário de término é obrigatório' })}
+              error={!!errors.workEndTime}
+              helperText={errors.workEndTime?.message}
+            />
+          </div>
+          <Controller
+            name="breakDuration"
+            control={control}
+            defaultValue=""
+            rules={{ required: 'Intervalo entre serviços é obrigatório' }}
+            render={({ field }) => (
+              <TextField
+                select
+                label="Intervalo entre serviços"
+                placeholder="Intervalo entre serviços"
+                fullWidth
+                {...field}
+                error={!!errors.breakDuration}
+                helperText={errors.breakDuration?.message}
+              >
+                <MenuItem value="" disabled>
+                  <em>Intervalo entre serviços</em>
+                </MenuItem>
+                {intervalos.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+          />
         </div>
         <Button
           sx={{

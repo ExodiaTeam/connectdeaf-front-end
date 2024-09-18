@@ -1,5 +1,5 @@
 import { AppDispatch } from "@/redux";
-import { createClient, selectCombinedData, setAddressData, selectedType } from "@/redux/formSlice";
+import { createClient, selectCombinedData, setAddressData, selectedType, createProfessional } from "@/redux/formSlice";
 import { Button, MenuItem, TextField } from "@mui/material";
 import { useEffect } from "react";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
@@ -38,19 +38,22 @@ export const SignUpAddress = () => {
   };
 
   useEffect(() => {
+    console.log('useEffect')
     if (combinedData) {
     
       if(typeSelected === 'professional') {
-        dispatch(createClient(combinedData)).then(() => {
+        console.log('professional')
+        dispatch(createProfessional(combinedData)).then(() => {
           navigate('/sign-up/finishing');
         });
       } else if(typeSelected === 'client') {
+        console.log('client')
         dispatch(createClient(combinedData)).then(() => {
         navigate('/sign-up/finishing');
       });
       }
     }
-    
+
   }, [combinedData, dispatch, navigate]);
 
   return (

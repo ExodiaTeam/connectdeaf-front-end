@@ -58,7 +58,20 @@ export function SignIn() {
       const expiresIn = result.expiresIn;
 
       dispatch(login({ token, expiresIn }));
-      navigate('/services');
+
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload);
+
+      const typeUser = JSON.parse(decodedPayload).roles[0];
+
+      console.log('Tipo de usuário:', typeUser);
+
+      if (typeUser === 'ROLE_USER') {
+        navigate('/services')
+      } else {
+        const userId = JSON.parse(decodedPayload).professionalId;
+        navigate('/appointments/professional/' + userId);
+      }
 
       console.log('Login bem-sucedido:', result);
     } catch (error) {
@@ -92,7 +105,7 @@ export function SignIn() {
               {...register('email', { required: true })}
               InputProps={{
                 startAdornment: (
-                  <EnvelopeSimple size={32} color="#999999" weight="thin" style={{marginRight: '8px'}}/>
+                  <EnvelopeSimple size={32} color="#999999" weight="thin" style={{ marginRight: '8px' }} />
                 )
               }}
             />
@@ -111,7 +124,7 @@ export function SignIn() {
               {...register('password', { required: true })}
               InputProps={{
                 startAdornment: (
-                  <Lock size={32} color="#999999" weight="thin" style={{marginRight: '8px'}}/>
+                  <Lock size={32} color="#999999" weight="thin" style={{ marginRight: '8px' }} />
                 ),
                 endAdornment: (
                   <InputAdornment position="end">
@@ -152,12 +165,12 @@ export function SignIn() {
             {errorMessage}
           </p>
         )}
-        <Button 
-          sx={{display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF',  transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem'}} 
-          type="submit" 
+        <Button
+          sx={{ display: 'flex', height: '42px', width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: '0.375rem', backgroundColor: '#3D66CC', padding: '1rem', color: '#FFFFFF', transitionDuration: '200ms', transitionTimingFunction: 'ease-in', '&:hover': { opacity: 0.9, }, '&:disabled': { backgroundColor: '#e0e0e0', }, marginBottom: '1.75rem' }}
+          type="submit"
           disabled={isSubmitting}
-          variant="contained"> 
-            CONTINUAR 
+          variant="contained">
+          CONTINUAR
         </Button>
         <a
           className="pt-4 text-primary-500 underline hover:opacity-80"
