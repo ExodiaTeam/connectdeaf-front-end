@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 
 async function getAllServices() {
     try {
+        const token = localStorage.getItem("token");
         const response = await fetch('http://localhost:8080/api/services', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
             },
         });
 
@@ -40,8 +42,8 @@ export const ListServices = () => {
 
     useEffect(() => {
         const fetchServices = async () => {
-            const services = await getAllServices();
-            setServices(services || []);
+            const servicesRequest = await getAllServices();
+            setServices(servicesRequest || []);
         };
 
         fetchServices();
