@@ -1,19 +1,19 @@
-import CardAppointments from "@/components/card-appointment"
+import CardAppointmentsProfessional from "@/components/card-appointment-professional";
 import { InputAdornment, MenuItem, TextField } from "@mui/material";
 import { MagnifyingGlass } from "@phosphor-icons/react"
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-export const Appointments = () => {
+export const AppointmentsProfessional = () => {
 
     const {
         handleSubmit,
         control,
         register,
         formState: { errors },
-    } = useForm()
+      } = useForm()
 
-    type Customer = {
+      type Customer = {
         id: string;
         name: string;
         email: string;
@@ -57,13 +57,13 @@ export const Appointments = () => {
         status: string;
       };
 
-    const getAllAppointments = async () => {
+      const getAllAppointments = async () => {
         const token = localStorage.getItem('token') || '';
         const payload = token.split('.')[1];
         const decodedPayload = atob(payload);
-        const userId = JSON.parse(decodedPayload).sub;
+        const userId = JSON.parse(decodedPayload).professionalId;
         try {
-            const response = await fetch('http://localhost:8080/api/appointments/customer/' + userId, {
+            const response = await fetch('http://localhost:8080/api/appointments/professional/' + userId, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export const Appointments = () => {
             setMyAppointments(appointments);
         });
     }, []);
-    
+
     const onSubmit = (data: any) => {
         console.log(data)
     }
@@ -106,12 +106,12 @@ export const Appointments = () => {
                 <TextField
                     label="Serviço"
                     placeholder="Pesquisar por serviço, prestador..."
-                    sx={{ width: '40%' }}
+                    sx={{width: '40%'}}
                     {...register('servico', { required: false })}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <MagnifyingGlass size={24} />
+                            <MagnifyingGlass size={24}/>
                             </InputAdornment>
                         ),
                     }}
@@ -123,17 +123,17 @@ export const Appointments = () => {
                     rules={{ required: false }}
                     render={({ field }) => (
                         <TextField
-                            select
-                            label="Status do Serviço"
-                            sx={{ width: '26%' }}
-                            {...field}
+                        select
+                        label="Status do Serviço"
+                        sx={{width: '26%'}}
+                        {...field}
                         >
-                            <MenuItem value="" disabled>
-                                <em>Status do Serviço</em>
-                            </MenuItem>
-                            <MenuItem value="Em espera">Em espera</MenuItem>
-                            <MenuItem value="Concluído">Concluído</MenuItem>
-                            <MenuItem value="Cancelado">Cancelado</MenuItem>
+                        <MenuItem value="" disabled>
+                            <em>Status do Serviço</em>
+                        </MenuItem>
+                        <MenuItem value="Em espera">Em espera</MenuItem>
+                        <MenuItem value="Concluído">Concluído</MenuItem>
+                        <MenuItem value="Cancelado">Cancelado</MenuItem>
                         </TextField>
                     )}
                 />
@@ -144,12 +144,12 @@ export const Appointments = () => {
                     rules={{ required: false, pattern: /^\d{2}\/\d{2}\/\d{4}$/ }}
                     render={({ field }) => (
                         <TextField
-                            label="Data Inicial"
-                            placeholder="DD/MM/AAAA"
-                            sx={{ width: '15%' }}
-                            {...field}
-                            error={!!errors.dataInicial}
-                            helperText={errors.dataInicial ? 'Formato de data inválido' : ''}
+                        label="Data Inicial"
+                        placeholder="DD/MM/AAAA"
+                        sx={{width: '15%'}}
+                        {...field}
+                        error={!!errors.dataInicial}
+                        helperText={errors.dataInicial ? 'Formato de data inválido' : ''}
                         />
                     )}
                 />
@@ -161,25 +161,25 @@ export const Appointments = () => {
                     rules={{ required: false, pattern: /^\d{2}\/\d{2}\/\d{4}$/ }}
                     render={({ field }) => (
                         <TextField
-                            label="Data Final"
-                            placeholder="DD/MM/AAAA"
-                            sx={{ width: '15%' }}
-                            {...field}
-                            error={!!errors.dataFinal}
-                            helperText={errors.dataFinal ? 'Formato de data inválido' : ''}
+                        label="Data Final"
+                        placeholder="DD/MM/AAAA"
+                        sx={{width: '15%'}}
+                        {...field}
+                        error={!!errors.dataFinal}
+                        helperText={errors.dataFinal ? 'Formato de data inválido' : ''}
                         />
                     )}
                 />
             </form>
-            <div className='w-89 h-full flex justify-center items-end' style={{ marginTop: '40px' }}>
-                {myAppointments.length > 0 ?
+            <div className='w-89 h-full flex justify-center items-end' style={{marginTop: '40px'}}>
+                {myAppointments.length > 0 ? 
                     <div className='w-full'>
-                        <CardAppointments appointments={myAppointments} ></CardAppointments>
+                        <CardAppointmentsProfessional appointments={myAppointments} />
                     </div>
-                    :
+                    : 
                     <div className='h-full flex justify-center items-center text-disabled-700 font-medium font-serif text-lg mt-36'>
                         Você ainda não tem nenhum Serviço Agendado.
-                    </div>
+                    </div> 
                 }
             </div>
         </div>

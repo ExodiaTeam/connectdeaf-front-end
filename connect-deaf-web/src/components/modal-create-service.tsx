@@ -26,24 +26,33 @@ export const ModalCreateService: React.FC<ModalCreateServiceProps> = ({
     };
 
     try {
-      const response = await fetch(`http://localhost:8080/api/services?professionalId=${userId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(serviceData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao criar serviço");
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("Token não encontrado");
+        }
+  
+        const response = await fetch(`http://localhost:8080/api/services?professionalId=${userId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify(serviceData),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Erro ao criar serviço:", errorData);
+          throw new Error(errorData.message || "Erro ao criar serviço");
+        }
+  
+        const result = await response.json();
+        console.log("Serviço criado com sucesso:", result);
+        onClose();
+      } catch (error) {
+        console.error("Erro ao criar serviço:", error);
+        alert(`Erro ao criar serviço: ${error}`);
       }
-
-      const result = await response.json();
-      console.log("Serviço criado com sucesso:", result);
-      onClose();
-    } catch (error) {
-      console.error("Erro ao criar serviço:", error);
-    }
   };
 
   return (

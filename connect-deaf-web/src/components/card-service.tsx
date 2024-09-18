@@ -5,22 +5,28 @@ import { useNavigate } from 'react-router-dom';
 
 type CardServiceProps = {
     name: string;
-    location: string;
+    professional: any;
     description: string;
     category: string[];
     avatar?: string | undefined;
     image?: string | undefined;
-    price: string;
+    value: string;
+    id: string;
 }
 
-export const CardService = ({ name, location, description, category, avatar = undefined, image = undefined, price }: CardServiceProps) => {
+export const CardService = ({ id, name, professional, description, category, avatar = undefined, image = undefined, value }: CardServiceProps) => {
     
     const navigate = useNavigate();
 
     const [favorite, setFavorite] = useState(false);
 
+    const city = professional.addresses[0].city;
+    const state = professional.addresses[0].state;
+    const professionalId = professional.id;
+    const descriptionProfessional = professional.email;
+
     const handleClickCard = () => {
-        navigate('/service', { state: { name, location, description, category, avatar, image } });
+        navigate('/service', { state: { name, description, descriptionProfessional, category, avatar, image, city, state, professionalId, id } });
     }
 
     return (
@@ -50,7 +56,7 @@ export const CardService = ({ name, location, description, category, avatar = un
                     </div>
                     <div className="ml-3" style={{width: '240px'}}>
                         <span className="block text-gray-900" style={{overflow: 'hidden', textWrap: 'nowrap', textOverflow: 'ellipsis'}}>{name}</span>
-                        <span className="block text-gray-400 text-sm flex"><MapPin size={20} className='flex-shrink-0' /> {location}</span>
+                        <span className="block text-gray-400 text-sm flex"><MapPin size={20} className='flex-shrink-0' /> {professional.addresses[0].city} - {professional.addresses[0].state}</span>
                     </div>
                     <div style={{cursor: 'pointer'}} onClick={() => setFavorite(!favorite)}>
                         
@@ -63,14 +69,20 @@ export const CardService = ({ name, location, description, category, avatar = un
                     </div>
                 </div>
                 <div className="pt-3 ml-4 mr-2 mb-3">
-                    <p className="text-sm mt-1"> A partir de {price}</p>
+                    <p className="text-sm mt-1"> A partir de {value}</p>
                     <p className="text-gray-400 text-sm mt-1 h-16" style={{ overflowY: 'scroll', textWrap: 'wrap', textOverflow: 'ellipsis'}}>{description}</p>
                 </div>
-                <div className='ml-4 flex flex-row gap-2 mb-4' style={{ overflowY: 'scroll', scrollbarWidth:'none', textWrap: 'wrap', textOverflow: 'ellipsis'}}>
-                    {category.map((cat, index) => (
-                    <div key={index} className='bg-primary-700 rounded-full px-2 py-1' style={{height: '28px', textWrap: 'nowrap'}}>{cat}</div>
-                    ))}
-                </div>
+                {
+                    category? 
+                        <div className='ml-4 flex flex-row gap-2 mb-4' style={{ overflowY: 'scroll', scrollbarWidth:'none', textWrap: 'wrap', textOverflow: 'ellipsis'}}>
+                        {
+                        category.map((cat, index) => (
+                        <div key={index} className='bg-primary-700 rounded-full px-2 py-1' style={{height: '28px', textWrap: 'nowrap'}}>{cat}</div>
+                        ))}
+                        </div>
+                    :
+                    <></>
+                }
                 </a>
             </article>
         </div>

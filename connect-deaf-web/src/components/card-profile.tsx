@@ -1,19 +1,20 @@
 import { Avatar, Button } from "@mui/material";
 import { Calendar, MapPin, User } from "@phosphor-icons/react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import { ScheduleModal } from "./modal-schedule";
 
 interface ProfileCardProps {
     name: string;
-    location: string;
+    city: string;
+    state: string;
     description: string;
     imageUrl?: string;
+    professionalId: string;
+    serviceId: string;
 }
 
-export const CardProfile = ({ name, location, description, imageUrl }: ProfileCardProps) => {
+export const CardProfile = ({ name, city, state, description, imageUrl, professionalId, serviceId }: ProfileCardProps) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const { serviceId } = useParams<{ serviceId: string }>();
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -37,7 +38,7 @@ export const CardProfile = ({ name, location, description, imageUrl }: ProfileCa
             </div>
             <div className="flex flex-col gap-2 w-3/5">
                 <span className="block text-gray-900 truncate max-w-full overflow-hidden whitespace-nowrap">{name}</span>
-                <span className="block text-primary-500 text-sm flex items-center"><MapPin size={20} /> {location}</span>
+                <span className="block text-primary-500 text-sm flex items-center"><MapPin size={20} /> {city} - {state}</span>
                 <p>{description}</p>
             </div>
             <div className="w-2/5 flex flex-col gap-4">
@@ -46,7 +47,7 @@ export const CardProfile = ({ name, location, description, imageUrl }: ProfileCa
                 </Button>
                 <Button variant="outlined">Ver Perfil do Profissional</Button>
             </div>
-            <ScheduleModal open={isModalOpen} onClose={handleCloseModal} serviceId={serviceId} />
+            <ScheduleModal open={isModalOpen} onClose={handleCloseModal} serviceId={serviceId} professionalId={professionalId}/>
         </div>
     );
 };

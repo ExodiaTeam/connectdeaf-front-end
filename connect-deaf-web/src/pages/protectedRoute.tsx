@@ -1,12 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../redux/index' 
-import { isTokenValid } from '@/utils/is-token-valid'
 
 const ProtectedRoute = () => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+  const token = localStorage.getItem('token')
 
-  return isLoggedIn && isTokenValid() ? <Outlet /> : <Navigate to="/sign-in" />
+  console.log('protected', token)
+  return token ? <Outlet /> : <Navigate to="/sign-in" />
 }
 
 export default ProtectedRoute

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { User, CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { User, CaretLeft, CaretRight, Check, X } from '@phosphor-icons/react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
@@ -11,6 +11,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+
 
 type Customer = {
     id: string;
@@ -56,12 +58,13 @@ type Customer = {
     status: string;
   };
   
-  type CardAppointmentsProps = {
+  type CardAppointmentsProfessionalProps = {
     appointments: Appointments[];
   };
 
+
 interface Column {
-    id: 'prestador' | 'serviço' | 'status do serviço' | 'início do serviço';
+    id: 'cliente' | 'serviço' | 'status do serviço' | 'início do serviço' | 'solicitacoes';
     label: string;
     minWidth?: number;
     align?: 'right' | 'left' | 'center';
@@ -69,10 +72,11 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'prestador', label: 'Prestador', minWidth: 50, align: 'center' },
+    { id: 'cliente', label: 'Cliente', minWidth: 50, align: 'center' },
     { id: 'serviço', label: 'Serviço', minWidth: 50, align: 'center' },
     { id: 'status do serviço', label: 'Status do serviço', minWidth: 50, align: 'center' },
     { id: 'início do serviço', label: 'Início do serviço', minWidth: 50, align: 'center' },
+    { id: 'solicitacoes', label: 'Solicitações', minWidth: 50, align: 'center' },
 ];
 
 interface TablePaginationActionsProps {
@@ -114,13 +118,15 @@ const TablePaginationActions: React.FC<TablePaginationActionsProps> = ({ count, 
     );
 };
 
-const CardAppointments: React.FC<CardAppointmentsProps> = ({ appointments }) => {
+const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> = ({ appointments }) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const currentRows = rowsPerPage > 0
         ? appointments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         : appointments;
+
+    console.log(currentRows);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -134,6 +140,47 @@ const CardAppointments: React.FC<CardAppointmentsProps> = ({ appointments }) => 
     ) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
+    };
+
+    const handleAccept = async (id: string) => {
+        const token = localStorage.getItem('token') || '';
+        try {
+            const response = await fetch(`http://localhost:8080/api/appointments/${id}/approve`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${token}`,
+                },
+                
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erro ao aceitar a solicitação');
+            }
+    
+            console.log(`Solicitação ${id} aceita com sucesso`);
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    };
+    
+    const handleReject = async (id: string) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/appointments/${id}/reject`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erro ao recusar a solicitação');
+            }
+    
+            console.log(`Solicitação ${id} recusada com sucesso`);
+        } catch (error) {
+            console.error('Erro:', error);
+        }
     };
 
     return (
@@ -161,7 +208,7 @@ const CardAppointments: React.FC<CardAppointmentsProps> = ({ appointments }) => 
                                         <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-200">
                                             <User size={10} />
                                         </div>
-                                        <span className='pl-2 font-serif'>{item.professional.name}</span>
+                                        <span className='pl-2 font-serif'>{item.customer.name}</span>
                                     </div>
                                 </TableCell>
                                 <TableCell style={{ width: 150 }} align="center">
@@ -184,11 +231,55 @@ const CardAppointments: React.FC<CardAppointmentsProps> = ({ appointments }) => 
                                 <TableCell style={{ width: 150 }} align="center">
                                     {item.schedule.date} - {item.schedule.startTime}
                                 </TableCell>
+                                <TableCell style={{ width: 150 }} align="center">
+                                    {
+                                        item.status === 'PENDING' &&
+                                        <div>
+                                            <Button
+                                            variant="contained"
+                                            onClick={() => handleAccept(item.id)}
+                                            sx={{ 
+                                                minWidth: 0, 
+                                                padding: 1, 
+                                                borderRadius: '50%', 
+                                                width: 36, 
+                                                height: 36,
+                                                backgroundColor: '#356B99',
+                                                '&:hover': {
+                                                    backgroundColor: '#1c4466',
+                                                }
+                                            }}
+                                            >
+                                                <Check size={16} />
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                onClick={() => handleReject(item.id)}
+                                                sx={{ 
+                                                    minWidth: 0, 
+                                                    padding: 1, 
+                                                    borderRadius: '50%', 
+                                                    width: 36, 
+                                                    height: 36, 
+                                                    marginLeft: 1,
+                                                    backgroundColor: '#5E0D0B',
+                                                    '&:hover': {
+                                                        backgroundColor: '#410302',
+                                                    }
+                                                }}
+                                            >
+                                                <X size={16} />
+                                            </Button>
+
+                                        </div>
+                                    }
+                                </TableCell>
                             </TableRow>
                         ))}
 
                         {rowsPerPage - currentRows.length > 0 &&
-                            (<TableRow style={{ height: 53 * rowsPerPage - currentRows.length }}>
+                            (<TableRow style={{ height: 53 * (rowsPerPage - currentRows.length) }}>
                                 <TableCell colSpan={columns.length} />
                             </TableRow>)}
 
@@ -221,4 +312,4 @@ const CardAppointments: React.FC<CardAppointmentsProps> = ({ appointments }) => 
     );
 };
 
-export default CardAppointments;
+export default CardAppointmentsProfessional;

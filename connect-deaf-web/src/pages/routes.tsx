@@ -15,6 +15,7 @@ import { ProfileProfessional } from './app/profile-professional'
 import { ProfileClient } from './app/profile-client.tsx'
 import { Appointments } from './app/appointments'
 import ProtectedRoute from './protectedRoute'
+import { AppointmentsProfessional } from './app/appointments-professional.tsx'
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,9 @@ export const router = createBrowserRouter([
       ]},
       { path: '/appointments', element: <ProtectedRoute />, children: [
         { path: '', element: <Appointments /> },
+      ]},
+      { path: '/appointments/professional/:id', element: <ProtectedRoute />, children: [
+        { path: '', element: <AppointmentsProfessional /> },
       ]},
     ],
   },
