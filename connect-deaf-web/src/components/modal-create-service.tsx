@@ -47,7 +47,6 @@ export const ModalCreateService: React.FC<ModalCreateServiceProps> = ({
         }
   
         const result = await response.json();
-        console.log("Serviço criado com sucesso:", result);
         onClose();
       } catch (error) {
         console.error("Erro ao criar serviço:", error);

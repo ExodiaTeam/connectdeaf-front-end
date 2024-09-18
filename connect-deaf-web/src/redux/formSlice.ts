@@ -24,7 +24,6 @@ const initialState: FormState = {
 const createProfessional = createAsyncThunk(
   "create/professional",
   async (dadosUsuario: any, { rejectWithValue }) => {
-    console.log('teste dentro da funcao', dadosUsuario);
     try {
       const response = await fetch("http://localhost:8080/api/professionals", {
         method: "POST",

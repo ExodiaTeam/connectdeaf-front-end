@@ -37,7 +37,6 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      console.log('data:', date);
       const response = await fetch(`http://localhost:8080/api/professionals/${professionalId}/${date}`, {
         method: 'GET',
         headers: {
@@ -50,7 +49,6 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
         throw new Error('Erro ao buscar horários disponíveis');
       }
       const data = await response.json();
-      console.log('Horários:', data);
 
       const availableTimeSlots = data.map((slot: { startTime: string, endTime: string }) => ({
         startTime: slot.startTime,
@@ -107,7 +105,6 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
       }
 
       const result = await response.json();
-      console.log("Serviço agendado com sucesso:", result);
     } catch (error) {
       console.error("Erro ao agendar serviço:", error);
     }

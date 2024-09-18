@@ -126,7 +126,6 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
         ? appointments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         : appointments;
 
-    console.log(currentRows);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -158,7 +157,6 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
                 throw new Error('Erro ao aceitar a solicitação');
             }
     
-            console.log(`Solicitação ${id} aceita com sucesso`);
         } catch (error) {
             console.error('Erro:', error);
         }
@@ -177,7 +175,6 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
                 throw new Error('Erro ao recusar a solicitação');
             }
     
-            console.log(`Solicitação ${id} recusada com sucesso`);
         } catch (error) {
             console.error('Erro:', error);
         }

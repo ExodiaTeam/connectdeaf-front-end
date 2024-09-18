@@ -20,7 +20,6 @@ async function getAllServices() {
         }
 
         const services = await response.json();
-        console.log('Serviços:', services);
         return services;
     } catch (error) {
         console.error('Erro ao obter serviços:', error);
@@ -50,7 +49,6 @@ export const ListServices = () => {
     }, []);
 
     const onSubmit = (data: any) => {
-        console.log(data);
     };
 
     return (
