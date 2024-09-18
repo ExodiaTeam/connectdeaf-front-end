@@ -1,73 +1,112 @@
-import { CardAssessment } from "@/components/card-assessment"
-import { Avatar, IconButton } from "@mui/material"
-import { MapPin, PencilSimple, User } from "@phosphor-icons/react"
-import { useLocation, useParams } from "react-router-dom"
+import { CardAssessment } from "@/components/card-assessment";
+import { Avatar, IconButton } from "@mui/material";
+import { MapPin, PencilSimple, User } from "@phosphor-icons/react";
+import { useLocation, useParams } from "react-router-dom";
+import assessmentEmpty from '../../assets/assessments-empty.svg';
+
+interface Assessment {
+    name: string;
+    stars: number;
+    description: string;
+}
+
+interface Profile {
+    name: string;
+    location: string;
+    description: string;
+    imageUrl: string;
+    assessments: Assessment[];
+}
 
 export const ProfileClient = () => {
     const { id } = useParams<{ id: string }>();
     const location = useLocation();
-  
-    const profile = {
-      name: 'João da Silva',
-      location: 'Fortaleza, CE',
-      description: 'Lorem Ipsulum',
-      imageUrl: '',
-      assessments: [
-        {
-          name: 'Luis Estevam',
-          stars: 5,
-          description: 'Excelente cliente.'
-        }
-      ]
+
+    const isMyProfile = location.pathname.includes("/myprofile");
+
+    const profile: Profile = {
+        name: "João da Silva",
+        location: "Fortaleza, CE",
+        description: "",
+        imageUrl: "",
+        assessments: [],
     };
-  
-    const isMyProfile = location.pathname.includes('/myprofile');
-  
+
     return (
-      <div className="w-11/12 mx-auto p-5 flex gap-5 flex-col">
-        <div className="w-full bg-white rounded-lg shadow-lg gap-6 p-5 flex items-center border-[1px] border-primary-700">
-          <div className="flex-none w-24 h-24 rounded-full">
-            {
-              profile.imageUrl ?
-                <div className="w-full h-full rounded-full flex items-center justify-center bg-gray-200">
-                  <User size={32} />
+        <div className="mx-auto flex w-11/12 flex-col gap-5 p-5">
+            <div className="flex w-full items-center gap-6 rounded-lg border-[1px] border-primary-700 bg-white p-5 shadow-lg">
+                <div className="h-24 w-24 flex-none rounded-full">
+                    {profile.imageUrl ? (
+                        <Avatar
+                            src={profile.imageUrl}
+                            alt="Avatar"
+                            sx={{ width: "100%", height: "100%", borderRadius: "9999" }}
+                        />
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center rounded-full bg-gray-200">
+                            <User size={32} />
+                        </div>
+                    )}
                 </div>
-                :
-                <Avatar src={profile.imageUrl} alt="Avatar" sx={{ width: '100%', height: '100%', borderRadius: '9999' }} />
-            }
-          </div>
-          <div className="flex flex-col gap-2 w-4/12">
-            <span className="block text-gray-900 truncate max-w-full overflow-hidden whitespace-nowrap">{profile.name}</span>
-            <span className="block text-primary-500 text-sm flex items-center"><MapPin size={20} /> {profile.location}</span>
-            <p className="block text-disabled-500 text-xs">{profile.description}</p>
-          </div>
+                <div className="flex w-4/12 flex-col gap-2">
+                    <span className="block max-w-full overflow-hidden truncate whitespace-nowrap text-gray-900">
+                        {profile.name}
+                    </span>
+                    <span className="block flex items-center text-sm text-primary-500">
+                        <MapPin size={20} /> {profile.location}
+                    </span>
+                    <p className="block text-xs text-disabled-500">
+                        {profile.description}
+                    </p>
+                </div>
+            </div>
+
+            <div className="flex w-full flex-col gap-6 rounded-lg border-[1px] border-primary-700 bg-white p-5 shadow-lg">
+                <div>
+                    <div className="flex items-center justify-between">
+                        <h2>Mais sobre mim</h2>
+                        {isMyProfile && (
+                            <IconButton>
+                                <PencilSimple size={20} />
+                            </IconButton>
+                        )}
+                    </div>
+                    <div className="text-disabled-500">
+                        {profile.description ? (
+                            profile.description
+                        ) : (
+                            <div>
+                                {isMyProfile ? (
+                                    <div className="flex items-center">
+                                        Você ainda não escreveu nada aqui. Clique no "<PencilSimple color="#3D66CC" size={20} />" para escrever algo sobre você.
+                                    </div>
+                                ) : (
+                                    <div>Este usuário ainda não tem uma descrição</div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex w-full flex-col gap-6 rounded-lg border-[1px] border-primary-700 bg-white p-5 shadow-lg">
+                <div>
+                    <h2>Avaliações sobre o cliente</h2>
+                    <div>4,8</div>
+                </div>
+                {profile.assessments.length > 0 ? (
+                    <div>
+                        {profile.assessments.map((assessment, index) => (
+                            <CardAssessment key={index} {...assessment} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center">
+                        <img src={assessmentEmpty} alt="Nenhuma avaliação" />
+                        Ainda não há nenhuma avaliação.
+                    </div>
+                )}
+            </div>
         </div>
-  
-        <div className="w-full bg-white rounded-lg shadow-lg gap-6 p-5 flex flex-col border-[1px] border-primary-700">
-          <div className="flex justify-between items-center">
-            <h2>Mais sobre mim</h2>
-            {isMyProfile && (
-              <IconButton>
-                <PencilSimple size={20} />
-              </IconButton>
-            )}
-          </div>
-          <div className="text-disabled-500">{profile.description}</div>
-        </div>
-  
-        <div className="w-full bg-white rounded-lg gap-6 shadow-lg p-5 flex flex-col border-[1px] border-primary-700">
-          <div>
-            <h2>Avaliações sobre o cliente</h2>
-            <div>4,8</div>
-          </div>
-          <div>
-            {profile.assessments.map((assessment) => {
-              return (
-                <CardAssessment {...assessment} />
-              )
-            })}
-          </div>
-        </div>
-      </div>
     );
-  };
+};
