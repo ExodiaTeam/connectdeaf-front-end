@@ -14,11 +14,11 @@ A alta escassez de serviços oferecidos às surdas dificulta a realização de t
 
 ### Ferramentas Externas
 
-- [Documento de Requisitos](https://docs.google.com/document/d/1W-B_DtEZkyXkk79Axyb5yhMMNb-jqJ5I/edit?usp=sharing&ouid=100809887927449083977&rtpof=true&sd=true)
 - [Boas Práticas em Engenharia de Software](https://docs.google.com/document/d/1rtlEDp11sz82cSEUg6wuBFJ8bOSvCjAv9If4ap_6U0k/edit)
 - [Novo: Decisões Tomadas no Projeto ConnectDeaf](https://docs.google.com/document/d/1iVhS_-bRAIYOW9IViSFU18mV_t8WzqT8yhPSk9mkYc0/edit?usp=sharing)
+- [Atualizado: Documento de Requisitos](https://docs.google.com/document/d/1W-B_DtEZkyXkk79Axyb5yhMMNb-jqJ5I/edit?usp=sharing&ouid=100809887927449083977&rtpof=true&sd=true)
+- [Atualizado: Documento de Ferramentas](https://docs.google.com/document/d/1PA1nNW955HqqzvrHZEAJ9HJgEhlbNIK6ozCf7KsLRYs/edit?usp=sharing)
 - [Atualizado: Prototipação](https://www.figma.com/file/VD3m4xIhaEAFI5Zc1fjrcq/CENOPS?type=design&node-id=0%3A1&mode=design&t=6JKPhRMhuUViXN4q-1)
 - [Atualizado: Avaliação Heurística](https://docs.google.com/document/d/19cv4U_979LV6jtSYvug5ypg5msvFZjShygEOhn5PrOE/edit?usp=sharing)
 - [Atualizado: Diagrama de Banco de Dados](https://excalidraw.com/#json=pCj3mV0_jcdESIx9uihUA,Uj5Ltt9z146aRo7QGnIQ2A)
 - [Atualizado: Gestão de Projeto (JIRA)](https://connectdeaf.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline?shared=&atlOrigin=eyJpIjoiNDk5N2Y0MGNiMzM2NGVlM2E0MGMwMGE1Y2QwNTc2YTQiLCJwIjoiaiJ9)
-- [Documento de Ferramentas](https://docs.google.com/document/d/1PA1nNW955HqqzvrHZEAJ9HJgEhlbNIK6ozCf7KsLRYs/edit?usp=sharing)
