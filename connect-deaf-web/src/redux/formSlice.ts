@@ -1,93 +1,140 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./index";
 
 interface FormState {
-    selectedType: 'client' | 'professional' | null;
-    addressData: any;
-    professionalData?: any;
-    clientData?: any;
-    loading?: boolean;
-    error?: string | null;
+  selectedType: "client" | "professional" | null;
+  addressData: any;
+  professionalData?: any;
+  clientData?: any;
+  loading?: boolean;
+  error?: string | null;
+  combinedData?: any;
 }
 
 const initialState: FormState = {
-    selectedType: null,
-    addressData: {},
-    professionalData: {},
-    clientData: {},
-    loading: false,
-    error: null,
-}
+  selectedType: null,
+  addressData: {},
+  professionalData: {},
+  clientData: {},
+  loading: false,
+  error: null,
+  combinedData: null,
+};
 
-const createUser = createAsyncThunk(
-    'create/user',
-    async (dadosUsuario: any, { rejectWithValue }) => {
-        try {
-            const response = await fetch('URL_DO_SEU_BACKEND/api/usuarios', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dadosUsuario)
-            });
+const createProfessional = createAsyncThunk(
+  "create/professional",
+  async (dadosUsuario: any, { rejectWithValue }) => {
+    console.log('teste dentro da funcao', dadosUsuario);
+    try {
+      const response = await fetch("http://localhost:8080/api/professionals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dadosUsuario),
+        credentials: 'include',
+      });
 
-            if (!response.ok) {
-                throw new Error('Erro ao criar usuário');
-            }
+      if (!response.ok) {
+        throw new Error('Falha na requisição');
+      }
 
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            return rejectWithValue((error as Error).message);
-        }
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
     }
+  },
 );
- 
+
+const createClient = createAsyncThunk(
+  "create/client",
+  async (dadosUsuario: any, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dadosUsuario),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha na requisição');
+      }
+
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  },
+);
+
 const formSlice = createSlice({
-    name: 'form',
-    initialState,
-    reducers: {
-        setUserType: ( state, action: PayloadAction<'client' | 'professional'> ) => {
-            state.selectedType = action.payload;
-        },
-        setAddressData: ( state, action: PayloadAction<any> ) => {
-            state.addressData = action.payload;
-        },
-        setProfessionalData: ( state, action: PayloadAction<any> ) => {
-            state.professionalData = action.payload;
-        },
-        setClientData: ( state, action: PayloadAction<any> ) => {
-            state.clientData = action.payload;
-        },
-        submitCreateUserForm: (state) => {
-            const combinedData: any = {
-                selectedType: state.selectedType,
-                addressData: state.addressData,
-            };
-
-            if (state.selectedType === 'professional') {
-                combinedData.professionalData = state.professionalData;
-            } else if (state.selectedType === 'client') {
-                combinedData.clientData = state.clientData;
-            }
-
-            createUser(combinedData);
-        }
+  name: "form",
+  initialState,
+  reducers: {
+    setUserType: (state, action: PayloadAction<"client" | "professional">) => {
+      state.selectedType = action.payload;
     },
-    extraReducers: (builder) => {
-        builder
-            .addCase(createUser.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(createUser.fulfilled, (state) => {
-                state.loading = false;
-            })
-            .addCase(createUser.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload as string;
-            });
+    setAddressData: (state, action: PayloadAction<any>) => {
+      state.addressData = action.payload;
+
+      const combinedData: any = {
+        ...state.combinedData,
+        addresses: Array.isArray(state.addressData) ? state.addressData : [state.addressData],
+      };
+
+      if (state.selectedType === "professional") {
+        combinedData.name = state.professionalData.name;
+        combinedData.email = state.professionalData.email;
+        combinedData.password = state.professionalData.password;
+        combinedData.phoneNumber = state.professionalData.phoneNumber;
+        combinedData.qualification = state.professionalData.qualification;
+        combinedData.areaOfExpertise = state.professionalData.areaOfExpertise;
+        combinedData.workStartTime = state.professionalData.workStartTime;
+        combinedData.workEndTime = state.professionalData.workEndTime;
+        combinedData.breakDuration = state.professionalData.breakDuration;
+      } else if (state.selectedType === "client") {
+        combinedData.name = state.clientData.name;
+        combinedData.email = state.clientData.email;
+        combinedData.password = state.clientData.password;
+        combinedData.phoneNumber = state.clientData.phoneNumber;
+      }
+
+      state.combinedData = combinedData;
     },
+    setProfessionalData: (state, action: PayloadAction<any>) => {
+      state.professionalData = action.payload;
+    },
+    setClientData: (state, action: PayloadAction<any>) => {
+      state.clientData = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createClient.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createClient.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(createClient.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+  },
 });
 
-export const { setUserType, setAddressData, setProfessionalData, setClientData, submitCreateUserForm } = formSlice.actions;
+export const selectCombinedData = (state: RootState) => state.form.combinedData;
+export const selectedType = (state: RootState) => state.form.selectedType;
+
+export const {
+  setUserType,
+  setAddressData,
+  setProfessionalData,
+  setClientData,
+} = formSlice.actions;
+export { createClient, createProfessional };
 export default formSlice.reducer;

@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import clientImg from '../../assets/cliente.svg'
 import professionalImg from '../../assets/profissional.svg'
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { setUserType } from '@/redux/formSlice';
 
 interface UserRegistrationType {
   type: 'client' | 'professional'
@@ -13,6 +15,8 @@ interface UserRegistrationType {
 
 export function SignUp() {
   const [selectedType, setselectedType] = useState('');
+
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -28,7 +32,8 @@ export function SignUp() {
   const navigate = useNavigate()
 
   function handleUserRegistrationType(data: UserRegistrationType) {
-    navigate(`/sign-up/${data.type}`)
+    dispatch(setUserType(data.type));
+    navigate(`/sign-up/${data.type}`);
   }
 
   return (
