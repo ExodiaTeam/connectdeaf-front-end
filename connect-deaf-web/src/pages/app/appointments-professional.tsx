@@ -76,7 +76,6 @@ export const AppointmentsProfessional = () => {
             }
 
             const appointments = await response.json();
-            console.log('Agendamentos:', appointments);
             return appointments;
         } catch (error) {
             console.error('Erro ao obter agendamentos:', error);
@@ -96,7 +95,6 @@ export const AppointmentsProfessional = () => {
     }, []);
 
     const onSubmit = (data: any) => {
-        console.log(data)
     }
 
     return (

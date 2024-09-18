@@ -76,7 +76,6 @@ export const SignUpProfessional = () => {
   };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log('teste onSubmit professional', data)
     if (data.phoneNumber.length !== 11) {
       setError('phoneNumber', {
         type: 'manual',

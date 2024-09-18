@@ -38,16 +38,13 @@ export const SignUpAddress = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect')
     if (combinedData) {
     
       if(typeSelected === 'professional') {
-        console.log('professional')
         dispatch(createProfessional(combinedData)).then(() => {
           navigate('/sign-up/finishing');
         });
       } else if(typeSelected === 'client') {
-        console.log('client')
         dispatch(createClient(combinedData)).then(() => {
         navigate('/sign-up/finishing');
       });

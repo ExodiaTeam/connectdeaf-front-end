@@ -64,7 +64,6 @@ export function SignIn() {
 
       const typeUser = JSON.parse(decodedPayload).roles[0];
 
-      console.log('Tipo de usuário:', typeUser);
 
       if (typeUser === 'ROLE_USER') {
         navigate('/services')
@@ -73,7 +72,6 @@ export function SignIn() {
         navigate('/appointments/professional/' + userId);
       }
 
-      console.log('Login bem-sucedido:', result);
     } catch (error) {
       console.error('Erro ao fazer login:', error);
 
