@@ -144,7 +144,7 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
     const handleAccept = async (id: string) => {
         const token = localStorage.getItem('token') || '';
         try {
-            const response = await fetch(`http://localhost:8080/api/appointments/${id}/approve`, {
+            const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/appointments/${id}/approve`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -164,7 +164,7 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
     
     const handleReject = async (id: string) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/appointments/${id}/reject`, {
+            const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/appointments/${id}/reject`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

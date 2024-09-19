@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 async function getAllServices() {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch('http://localhost:8080/api/services', {
+        const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/services', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

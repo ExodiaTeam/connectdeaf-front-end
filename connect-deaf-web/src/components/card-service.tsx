@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 type CardServiceProps = {
     name: string;
-    professional: any;
+    professional?: any;
     description: string;
     category: string[];
     avatar?: string | undefined;

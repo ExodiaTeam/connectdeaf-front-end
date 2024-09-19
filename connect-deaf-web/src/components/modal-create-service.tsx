@@ -31,7 +31,7 @@ export const ModalCreateService: React.FC<ModalCreateServiceProps> = ({
           throw new Error("Token não encontrado");
         }
   
-        const response = await fetch(`http://localhost:8080/api/services?professionalId=${userId}`, {
+        const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/services?professionalId=${userId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

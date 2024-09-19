@@ -1,6 +1,7 @@
 import { CardAssessment } from "@/components/card-assessment";
 import { Avatar, IconButton } from "@mui/material";
 import { MapPin, PencilSimple, User } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import assessmentEmpty from '../../assets/assessments-empty.svg';
 
@@ -18,19 +19,48 @@ interface Profile {
     assessments: Assessment[];
 }
 
+async function getProfile(userId: string | undefined) {
+    try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/users/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`);
+        }
+
+        const profile = await response.json();
+        return profile;
+    } catch (error) {
+        console.error('Erro ao obter perfil:', error);
+    }
+}
+
 export const ProfileClient = () => {
     const { id } = useParams<{ id: string }>();
     const location = useLocation();
+    const [profile, setProfile] = useState<Profile | null>(null);
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const profileRequest = await getProfile(id);
+            setProfile(profileRequest);
+            console.log(profileRequest);
+        };
+
+        fetchProfile();
+    }, [id]);
 
     const isMyProfile = location.pathname.includes("/myprofile");
 
-    const profile: Profile = {
-        name: "João da Silva",
-        location: "Fortaleza, CE",
-        description: "",
-        imageUrl: "",
-        assessments: [],
-    };
+    if (!profile) {
+        return <div>Carregando...</div>;
+    }
 
     return (
         <div className="mx-auto flex w-11/12 flex-col gap-5 p-5">
@@ -94,7 +124,7 @@ export const ProfileClient = () => {
                     <h2>Avaliações sobre o cliente</h2>
                     <div>4,8</div>
                 </div>
-                {profile.assessments.length > 0 ? (
+                {profile.assessments ? (
                     <div>
                         {profile.assessments.map((assessment, index) => (
                             <CardAssessment key={index} {...assessment} />
