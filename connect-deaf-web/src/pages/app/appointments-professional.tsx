@@ -63,7 +63,7 @@ export const AppointmentsProfessional = () => {
         const decodedPayload = atob(payload);
         const userId = JSON.parse(decodedPayload).professionalId;
         try {
-            const response = await fetch('http://localhost:8080/api/appointments/professional/' + userId, {
+            const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/appointments/professional/' + userId, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

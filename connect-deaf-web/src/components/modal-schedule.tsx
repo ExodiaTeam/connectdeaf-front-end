@@ -37,7 +37,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8080/api/professionals/${professionalId}/${date}`, {
+      const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/professionals/${professionalId}/${date}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
         customerId
       };
 
-      const response = await fetch(`http://localhost:8080/api/appointments`, {
+      const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
