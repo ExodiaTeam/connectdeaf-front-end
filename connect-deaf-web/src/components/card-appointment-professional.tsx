@@ -19,9 +19,9 @@ type Customer = {
     name: string;
     email: string;
     phoneNumber: string;
-  };
-  
-  type Professional = {
+};
+
+type Professional = {
     id: string;
     name: string;
     email: string;
@@ -31,36 +31,36 @@ type Customer = {
     workStartTime: string;
     workEndTime: string;
     breakDuration: string;
-  };
-  
-  type Schedule = {
+};
+
+type Schedule = {
     id: string;
     professionalId: string;
     date: string;
     startTime: string;
     endTime: string;
-  };
-  
-  type Service = {
+};
+
+type Service = {
     id: string;
     name: string;
     description: string;
     value: number;
     professional: Professional;
-  };
-  
-  type Appointments = {
+};
+
+type Appointments = {
     id: string;
     customer: Customer;
     professional: Professional;
     schedule: Schedule;
     service: Service;
     status: string;
-  };
-  
-  type CardAppointmentsProfessionalProps = {
+};
+
+type CardAppointmentsProfessionalProps = {
     appointments: Appointments[];
-  };
+};
 
 
 interface Column {
@@ -84,8 +84,8 @@ interface TablePaginationActionsProps {
     page: number;
     rowsPerPage: number;
     onPageChange: (
-      event: React.MouseEvent<HTMLButtonElement> | null,
-      newPage: number,
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
     ) => void;
 }
 
@@ -144,37 +144,37 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
     const handleAccept = async (id: string) => {
         const token = localStorage.getItem('token') || '';
         try {
-            const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/appointments/${id}/approve`, {
+            const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/appointments/${id}/approve`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${token}`,
                 },
-                
+
             });
-    
+
             if (!response.ok) {
                 throw new Error('Erro ao aceitar a solicitação');
             }
-    
+
         } catch (error) {
             console.error('Erro:', error);
         }
     };
-    
+
     const handleReject = async (id: string) => {
         try {
-            const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/appointments/${id}/reject`, {
+            const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/appointments/${id}/reject`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-    
+
             if (!response.ok) {
                 throw new Error('Erro ao recusar a solicitação');
             }
-    
+
         } catch (error) {
             console.error('Erro:', error);
         }
@@ -220,9 +220,9 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
                                         ) : item.status === 'APPROVED' ?
                                             <div className='flex justify-center items-center bg-[#1f43b9] text-white font-normal rounded-full w-24 h-8'>Aceito</div>
                                             :
-                                        (
-                                            <div className='flex justify-center items-center bg-[#f3e308] text-white font-normal rounded-full w-24 h-8'>Em espera</div>
-                                        )}
+                                            (
+                                                <div className='flex justify-center items-center bg-[#f3e308] text-white font-normal rounded-full w-24 h-8'>Em espera</div>
+                                            )}
                                     </div>
                                 </TableCell>
                                 <TableCell style={{ width: 150 }} align="center">
@@ -233,19 +233,19 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
                                         item.status === 'PENDING' &&
                                         <div>
                                             <Button
-                                            variant="contained"
-                                            onClick={() => handleAccept(item.id)}
-                                            sx={{ 
-                                                minWidth: 0, 
-                                                padding: 1, 
-                                                borderRadius: '50%', 
-                                                width: 36, 
-                                                height: 36,
-                                                backgroundColor: '#356B99',
-                                                '&:hover': {
-                                                    backgroundColor: '#1c4466',
-                                                }
-                                            }}
+                                                variant="contained"
+                                                onClick={() => handleAccept(item.id)}
+                                                sx={{
+                                                    minWidth: 0,
+                                                    padding: 1,
+                                                    borderRadius: '50%',
+                                                    width: 36,
+                                                    height: 36,
+                                                    backgroundColor: '#356B99',
+                                                    '&:hover': {
+                                                        backgroundColor: '#1c4466',
+                                                    }
+                                                }}
                                             >
                                                 <Check size={16} />
                                             </Button>
@@ -253,12 +253,12 @@ const CardAppointmentsProfessional: React.FC<CardAppointmentsProfessionalProps> 
                                                 variant="contained"
                                                 color="secondary"
                                                 onClick={() => handleReject(item.id)}
-                                                sx={{ 
-                                                    minWidth: 0, 
-                                                    padding: 1, 
-                                                    borderRadius: '50%', 
-                                                    width: 36, 
-                                                    height: 36, 
+                                                sx={{
+                                                    minWidth: 0,
+                                                    padding: 1,
+                                                    borderRadius: '50%',
+                                                    width: 36,
+                                                    height: 36,
                                                     marginLeft: 1,
                                                     backgroundColor: '#5E0D0B',
                                                     '&:hover': {

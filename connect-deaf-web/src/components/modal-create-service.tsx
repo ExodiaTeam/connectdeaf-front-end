@@ -26,32 +26,32 @@ export const ModalCreateService: React.FC<ModalCreateServiceProps> = ({
     };
 
     try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("Token não encontrado");
-        }
-  
-        const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/services?professionalId=${userId}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-          body: JSON.stringify(serviceData),
-        });
-  
-        if (!response.ok) {
-          const errorData = await response.json();
-          console.error("Erro ao criar serviço:", errorData);
-          throw new Error(errorData.message || "Erro ao criar serviço");
-        }
-  
-        const result = await response.json();
-        onClose();
-      } catch (error) {
-        console.error("Erro ao criar serviço:", error);
-        alert(`Erro ao criar serviço: ${error}`);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Token não encontrado");
       }
+
+      const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/services?professionalId=${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(serviceData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Erro ao criar serviço:", errorData);
+        throw new Error(errorData.message || "Erro ao criar serviço");
+      }
+
+      const result = await response.json();
+      onClose();
+    } catch (error) {
+      console.error("Erro ao criar serviço:", error);
+      alert(`Erro ao criar serviço: ${error}`);
+    }
   };
 
   return (

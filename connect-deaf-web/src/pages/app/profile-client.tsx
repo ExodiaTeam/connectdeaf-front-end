@@ -11,18 +11,26 @@ interface Assessment {
     description: string;
 }
 
+interface Address {
+    city: string;
+    state: string;
+    street: string;
+    zipCode: string;
+}
+
 interface Profile {
     name: string;
     location: string;
     description: string;
     imageUrl: string;
+    addresses: Address[];
     assessments: Assessment[];
 }
 
 async function getProfile(userId: string | undefined) {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/users/${userId}`, {
+        const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/users/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,9 +90,7 @@ export const ProfileClient = () => {
                     <span className="block max-w-full overflow-hidden truncate whitespace-nowrap text-gray-900">
                         {profile.name}
                     </span>
-                    <span className="block flex items-center text-sm text-primary-500">
-                        <MapPin size={20} /> {profile.location}
-                    </span>
+                    <span className="block text-primary-500 text-sm flex items-center"><MapPin size={20} /> {profile.addresses[0]?.city}, {profile.addresses[0]?.state}</span>
                     <p className="block text-xs text-disabled-500">
                         {profile.description}
                     </p>

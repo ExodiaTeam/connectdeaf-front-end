@@ -11,16 +11,16 @@ export const AppointmentsProfessional = () => {
         control,
         register,
         formState: { errors },
-      } = useForm()
+    } = useForm()
 
-      type Customer = {
+    type Customer = {
         id: string;
         name: string;
         email: string;
         phoneNumber: string;
-      };
-      
-      type Professional = {
+    };
+
+    type Professional = {
         id: string;
         name: string;
         email: string;
@@ -30,40 +30,40 @@ export const AppointmentsProfessional = () => {
         workStartTime: string;
         workEndTime: string;
         breakDuration: string;
-      };
-      
-      type Schedule = {
+    };
+
+    type Schedule = {
         id: string;
         professionalId: string;
         date: string;
         startTime: string;
         endTime: string;
-      };
-      
-      type Service = {
+    };
+
+    type Service = {
         id: string;
         name: string;
         description: string;
         value: number;
         professional: Professional;
-      };
-      
-      type Appointments = {
+    };
+
+    type Appointments = {
         id: string;
         customer: Customer;
         professional: Professional;
         schedule: Schedule;
         service: Service;
         status: string;
-      };
+    };
 
-      const getAllAppointments = async () => {
+    const getAllAppointments = async () => {
         const token = localStorage.getItem('token') || '';
         const payload = token.split('.')[1];
         const decodedPayload = atob(payload);
         const userId = JSON.parse(decodedPayload).professionalId;
         try {
-            const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/appointments/professional/' + userId, {
+            const response = await fetch('https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/appointments/professional/' + userId, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,9 +85,9 @@ export const AppointmentsProfessional = () => {
         const appointments = await getAllAppointments();
         return appointments;
     };
-    
+
     const [myAppointments, setMyAppointments] = useState<Appointments[]>([]);
-    
+
     useEffect(() => {
         fetchAppointments().then((appointments) => {
             setMyAppointments(appointments);
@@ -104,12 +104,12 @@ export const AppointmentsProfessional = () => {
                 <TextField
                     label="Serviço"
                     placeholder="Pesquisar por serviço, prestador..."
-                    sx={{width: '40%'}}
+                    sx={{ width: '40%' }}
                     {...register('servico', { required: false })}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                            <MagnifyingGlass size={24}/>
+                                <MagnifyingGlass size={24} />
                             </InputAdornment>
                         ),
                     }}
@@ -121,17 +121,17 @@ export const AppointmentsProfessional = () => {
                     rules={{ required: false }}
                     render={({ field }) => (
                         <TextField
-                        select
-                        label="Status do Serviço"
-                        sx={{width: '26%'}}
-                        {...field}
+                            select
+                            label="Status do Serviço"
+                            sx={{ width: '26%' }}
+                            {...field}
                         >
-                        <MenuItem value="" disabled>
-                            <em>Status do Serviço</em>
-                        </MenuItem>
-                        <MenuItem value="Em espera">Em espera</MenuItem>
-                        <MenuItem value="Concluído">Concluído</MenuItem>
-                        <MenuItem value="Cancelado">Cancelado</MenuItem>
+                            <MenuItem value="" disabled>
+                                <em>Status do Serviço</em>
+                            </MenuItem>
+                            <MenuItem value="Em espera">Em espera</MenuItem>
+                            <MenuItem value="Concluído">Concluído</MenuItem>
+                            <MenuItem value="Cancelado">Cancelado</MenuItem>
                         </TextField>
                     )}
                 />
@@ -142,12 +142,12 @@ export const AppointmentsProfessional = () => {
                     rules={{ required: false, pattern: /^\d{2}\/\d{2}\/\d{4}$/ }}
                     render={({ field }) => (
                         <TextField
-                        label="Data Inicial"
-                        placeholder="DD/MM/AAAA"
-                        sx={{width: '15%'}}
-                        {...field}
-                        error={!!errors.dataInicial}
-                        helperText={errors.dataInicial ? 'Formato de data inválido' : ''}
+                            label="Data Inicial"
+                            placeholder="DD/MM/AAAA"
+                            sx={{ width: '15%' }}
+                            {...field}
+                            error={!!errors.dataInicial}
+                            helperText={errors.dataInicial ? 'Formato de data inválido' : ''}
                         />
                     )}
                 />
@@ -159,25 +159,25 @@ export const AppointmentsProfessional = () => {
                     rules={{ required: false, pattern: /^\d{2}\/\d{2}\/\d{4}$/ }}
                     render={({ field }) => (
                         <TextField
-                        label="Data Final"
-                        placeholder="DD/MM/AAAA"
-                        sx={{width: '15%'}}
-                        {...field}
-                        error={!!errors.dataFinal}
-                        helperText={errors.dataFinal ? 'Formato de data inválido' : ''}
+                            label="Data Final"
+                            placeholder="DD/MM/AAAA"
+                            sx={{ width: '15%' }}
+                            {...field}
+                            error={!!errors.dataFinal}
+                            helperText={errors.dataFinal ? 'Formato de data inválido' : ''}
                         />
                     )}
                 />
             </form>
-            <div className='w-89 h-full flex justify-center items-end' style={{marginTop: '40px'}}>
-                {myAppointments.length > 0 ? 
+            <div className='w-89 h-full flex justify-center items-end' style={{ marginTop: '40px' }}>
+                {myAppointments.length > 0 ?
                     <div className='w-full'>
                         <CardAppointmentsProfessional appointments={myAppointments} />
                     </div>
-                    : 
+                    :
                     <div className='h-full flex justify-center items-center text-disabled-700 font-medium font-serif text-lg mt-36'>
                         Você ainda não tem nenhum Serviço Agendado.
-                    </div> 
+                    </div>
                 }
             </div>
         </div>

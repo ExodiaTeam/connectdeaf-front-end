@@ -49,10 +49,10 @@ interface Profile {
     assessments: Assessment[];
 }
 
-async function getAllServices() {
+async function getAllServices(professionalId: string | undefined) {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/services', {
+        const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/services/professional/${professionalId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ async function getAllServices() {
 async function getProfile(professionalId: string | undefined) {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/professionals/${professionalId}`, {
+        const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/professionals/${professionalId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const ProfileProfessional = () => {
 
     useEffect(() => {
         const fetchServices = async () => {
-            const servicesRequest = await getAllServices();
+            const servicesRequest = await getAllServices(id);
             setServices(servicesRequest);
         };
 
@@ -197,7 +197,7 @@ export const ProfileProfessional = () => {
                 {services ? (
                     <div className="flex gap-4">
                         {services.map((service) => (
-                            <CardService key={service.id} id={id || ''} name={service.name} professional={profile} description={service.description} category={[]} value={service.value}/>
+                            <CardService key={service.id} id={id || ''} name={service.name} professional={profile} description={service.description} category={[]} value={service.value} />
                         ))}
                     </div>
                 ) : (
