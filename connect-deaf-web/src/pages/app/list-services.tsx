@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 async function getAllServices() {
     try {
         const token = localStorage.getItem("token");
-        const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/services', {
+        const response = await fetch('https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/services', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,12 +59,12 @@ export const ListServices = () => {
                 <TextField
                     label="Serviço"
                     placeholder="Pesquisar por serviço..."
-                    sx={{width: '50%'}}
+                    sx={{ width: '50%' }}
                     {...register('servico', { required: false })}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <MagnifyingGlass size={24}/>
+                                <MagnifyingGlass size={24} />
                             </InputAdornment>
                         ),
                     }}
@@ -78,7 +78,7 @@ export const ListServices = () => {
                         <TextField
                             select
                             label="Estado"
-                            sx={{width: '25%'}}
+                            sx={{ width: '25%' }}
                             {...field}
                         >
                             <MenuItem value="" disabled>
@@ -101,7 +101,7 @@ export const ListServices = () => {
                         <TextField
                             select
                             label="Cidade"
-                            sx={{width: '25%'}}
+                            sx={{ width: '25%' }}
                             {...field}
                         >
                             <MenuItem value="" disabled>
@@ -116,16 +116,16 @@ export const ListServices = () => {
                     )}
                 />
             </form>
-                {
-                    services.length === 0 ?
-                        <div className='text-center text-lg font-medium font-sans mt-12'>Nenhum serviço encontrado.</div>
-                        :
-                        <div className='grid grid-cols-3 gap-6 w-89' style={{marginTop: '40px'}}>
-                            {services.map((service) => (
-                                <CardService key={service.id} {...service} />
-                            ))}
-                        </div>
-                }
+            {
+                services.length === 0 ?
+                    <div className='text-center text-lg font-medium font-sans mt-12'>Nenhum serviço encontrado.</div>
+                    :
+                    <div className='grid grid-cols-3 gap-6 w-89' style={{ marginTop: '40px' }}>
+                        {services.map((service) => (
+                            <CardService key={service.id} {...service} />
+                        ))}
+                    </div>
+            }
         </div>
     );
 };

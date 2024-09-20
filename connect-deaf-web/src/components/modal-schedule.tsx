@@ -3,10 +3,10 @@ import { format, addDays } from 'date-fns';
 import { useState } from 'react';
 
 interface ScheduleModalProps {
-    open: boolean;
-    onClose: () => void;
-    serviceId: string | undefined;
-    professionalId: string;
+  open: boolean;
+  onClose: () => void;
+  serviceId: string | undefined;
+  professionalId: string;
 }
 
 interface TimeSlot {
@@ -37,7 +37,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/professionals/${professionalId}/${date}`, {
+      const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/professionals/${professionalId}/${date}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export const ScheduleModal: React.FC<ScheduleModalProps> = ({ open, onClose, ser
         customerId
       };
 
-      const response = await fetch(`https://connectdeaf-app-hml.azurewebsites.net/api/appointments`, {
+      const response = await fetch(`https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

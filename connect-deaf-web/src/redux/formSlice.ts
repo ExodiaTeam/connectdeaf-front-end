@@ -25,7 +25,7 @@ const createProfessional = createAsyncThunk(
   "create/professional",
   async (dadosUsuario: any, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://connectdeaf-app-hml.azurewebsites.net/api/professionals", {
+      const response = await fetch("https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/professionals", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const createClient = createAsyncThunk(
   "create/client",
   async (dadosUsuario: any, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://connectdeaf-app-hml.azurewebsites.net/api/users", {
+      const response = await fetch("https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

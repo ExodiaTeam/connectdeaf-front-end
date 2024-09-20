@@ -30,7 +30,7 @@ export function SignIn() {
 
   async function handleSignIn(data: SignInFormInputs) {
     try {
-      const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/auth/login', {
+      const response = await fetch('https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

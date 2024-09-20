@@ -18,9 +18,9 @@ export const Appointments = () => {
         name: string;
         email: string;
         phoneNumber: string;
-      };
-      
-      type Professional = {
+    };
+
+    type Professional = {
         id: string;
         name: string;
         email: string;
@@ -30,32 +30,32 @@ export const Appointments = () => {
         workStartTime: string;
         workEndTime: string;
         breakDuration: string;
-      };
-      
-      type Schedule = {
+    };
+
+    type Schedule = {
         id: string;
         professionalId: string;
         date: string;
         startTime: string;
         endTime: string;
-      };
-      
-      type Service = {
+    };
+
+    type Service = {
         id: string;
         name: string;
         description: string;
         value: number;
         professional: Professional;
-      };
-      
-      type Appointments = {
+    };
+
+    type Appointments = {
         id: string;
         customer: Customer;
         professional: Professional;
         schedule: Schedule;
         service: Service;
         status: string;
-      };
+    };
 
     const getAllAppointments = async () => {
         const token = localStorage.getItem('token') || '';
@@ -63,7 +63,7 @@ export const Appointments = () => {
         const decodedPayload = atob(payload);
         const userId = JSON.parse(decodedPayload).sub;
         try {
-            const response = await fetch('https://connectdeaf-app-hml.azurewebsites.net/api/appointments/customer/' + userId, {
+            const response = await fetch('https://app-connectdeaf-hml-bmcgg9axekdjcva3.canadaeast-01.azurewebsites.net/api/appointments/customer/' + userId, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,15 +85,15 @@ export const Appointments = () => {
         const appointments = await getAllAppointments();
         return appointments;
     };
-    
+
     const [myAppointments, setMyAppointments] = useState<Appointments[]>([]);
-    
+
     useEffect(() => {
         fetchAppointments().then((appointments) => {
             setMyAppointments(appointments);
         });
     }, []);
-    
+
     const onSubmit = (data: any) => {
     }
 
